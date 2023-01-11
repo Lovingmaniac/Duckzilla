@@ -1,23 +1,31 @@
 # Maak voor ieder component een Python class
 class Grid:
-  pass
+    pass
 
 class House:
-  pass
+    pass
 
 class Battery:
-  pass
+    pass
 
 class Cable:
-  pass
+    pass
 
 # Schrijf vervolgens een functie die een instantie van het probleem 
 # inleest en op basis daarvan instanties (objecten) van de verschillende classes aanmaakt.
 def read_grid(var):
-  pass
+    pass
 
+def place_house(var):
+    pass
+
+def place_battery(var):
+    pass
+
+def place_cable(var):
+    pass
 
 # Schrijf dan nog één functie, die de objecten van de verschillende classes inneemt en 
 # output in het voorgeschreven format genereerd.
 def get_output(var):
-  pass
+    pass
