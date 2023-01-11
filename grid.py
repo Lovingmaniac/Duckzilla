@@ -4,8 +4,8 @@ from house import House
 class Grid:
   
   def __init__(self) -> None:
-      self.houses
-      self.batteries
+      self.houses = []
+      self.batteries = []
   
   def load_grid(self, district):
       # load battery data
