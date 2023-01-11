@@ -5,8 +5,12 @@ class Battery:
 
   def __init__(self, x: int, y: int, capacity: float):
       self.location = (x, y)
+      self.capacity = capacity
       self.current_capacity = capacity
-      self.houses: list[House]
+      self.houses: list[House] = []
+
+  def __repr__(self):
+    return f'loc:{self.location}, cap:{self.current_capacity}'
 
   def add_house(self, house: House) -> None:
       """ Adds a house to self and updates current capacity"""
@@ -20,6 +24,9 @@ class Battery:
 
   def get_capacity(self) -> float:
       return self.current_capacity
+
+  def get_location(self):
+      return f'{self.location[0]},{self.location[1]}'
 
   def has_space(self, house: House) -> bool:
       """ 

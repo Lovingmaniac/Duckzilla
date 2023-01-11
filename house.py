@@ -1,6 +1,7 @@
 class House:
-    def __innit__(self, x: int, y: int, output: float) -> None:
-        self.location = {x, y}
+  
+    def __init__(self, x: int, y: int, output: float) -> None:
+        self.location = (x, y)
         self.output = output
         self.cables = [tuple]
 
@@ -18,3 +19,9 @@ class House:
     def get_output(self) -> float:
         '''returns the output of a house object'''
         return self.output
+    
+    def get_location(self):
+      return f'{self.location[0]},{self.location[1]}'
+
+    def get_cables(self):
+        return self.cables
