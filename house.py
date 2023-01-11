@@ -25,3 +25,6 @@ class House:
 
     def get_cables(self):
         return self.cables
+
+    def __repr__(self) -> str:
+        return f'loc: {self.location}, output: {self.output} \n'
