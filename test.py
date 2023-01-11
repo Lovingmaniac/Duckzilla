@@ -15,12 +15,9 @@ for battery in grid.batteries:
     for i in range(2):
         house_to_add = grid.houses.pop()
         battery.add_house(house_to_add)
-    
+
 # get district info
-district_info = {
-    "district": district,
-    "costs-shared": 10198
-}
+district_info = {"district": district, "costs-shared": 10198}
 
 # initialize list of dictionaries
 output = [district_info]
@@ -30,19 +27,18 @@ for battery in grid.batteries:
     houses = []
     for house in battery.houses:
         house_info = {
-            "location": house.get_location(), 
-            "output": house.get_output(), 
-            "cables": ["33, 7", "33,8"]
+            "location": house.get_location(),
+            "output": house.get_output(),
+            "cables": ["33, 7", "33,8"],
         }
         houses.append(house_info)
 
     battery_info = {
-        "location": battery.get_location(), 
-        "capacity": battery.capacity, 
-        "houses": houses
+        "location": battery.get_location(),
+        "capacity": battery.capacity,
+        "houses": houses,
     }
     output.append(battery_info)
-
 
 
 with open("test_output.json", "w") as write_file:

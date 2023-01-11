@@ -6,12 +6,9 @@ from house import House
 
 
 def output(grid):
-    """ This function ...."""
+    """This function ...."""
     # get district info
-    district_info = {
-        "district": grid.district,
-        "costs-shared": 10198
-    }
+    district_info = {"district": grid.district, "costs-shared": 10198}
 
     # initialize list of dictionaries
     output = [district_info]
@@ -23,9 +20,9 @@ def output(grid):
         # initialize house variables to dictionary
         for house in battery.houses:
             house_info = {
-                "location": house.get_location(), 
-                "output": house.get_output(), 
-                "cables": house.get_cables()
+                "location": house.get_location(),
+                "output": house.get_output(),
+                "cables": house.get_cables(),
             }
 
             # add house dictionary to battery's list of houses
@@ -33,9 +30,9 @@ def output(grid):
 
         # get battery info as dictionary
         battery_info = {
-            "location": battery.get_location(), 
-            "capacity": battery.capacity, 
-            "houses": houses
+            "location": battery.get_location(),
+            "capacity": battery.capacity,
+            "houses": houses,
         }
 
         # add battery info to output list

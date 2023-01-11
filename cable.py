@@ -1,5 +1,3 @@
 class Cable:
-   
-    pass        
 
-  
+    pass
