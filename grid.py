@@ -4,13 +4,18 @@ from battery import Battery
 from house import House
 
 class Grid:
-  
+
   def __init__(self) -> None:
+    """ Constructor of class Grid
+    self.district -- the district info
+    self.houses -- list of all houses in grid
+    self.batteries -- list of all batteries in grid"""
     self.district = 0
-    self.houses = []
+    self.houses: list['House'] = []
     self.batteries = []
-  
-  def load_grid(self, district):
+
+  def load_grid(self, district) -> None:
+    """ Loads grid for district. """
     self.district = district
 
     # load battery data
