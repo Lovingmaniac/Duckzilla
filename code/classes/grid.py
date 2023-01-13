@@ -98,9 +98,8 @@ class Grid:
                 # set node object type to house
                 self.nodes[(x, y)].add_type("house")
             
-    def is_solution(self):
-        for node in self.nodes:
-            if node.get_type() is "house":
-                
-                
-                pass
+    # def is_solution(self):
+    #     for node in self.nodes:
+    #         if node.get_type() == "house":
+                            
+    #             pass
