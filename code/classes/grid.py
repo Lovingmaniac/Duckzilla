@@ -34,6 +34,7 @@ class Grid:
                 self.nodes[(x, y)] = node
 
     def add_connections(self) -> None:
+        """Adds all connected nodes as connections to all nodes"""
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
         # iterate over each node in grid
@@ -42,7 +43,7 @@ class Grid:
             # iterate over all directions and define x-y coordinates
             for direction in directions:
                 connection = (node[0] + direction[0], node[1] + direction[1])
-                # add connection to node if possible 
+                # add connection to node if possible
                 if connection in self.nodes:
                     self.nodes[(node)].add_connection(connection)
 
