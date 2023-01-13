@@ -1,7 +1,7 @@
 import csv
 
-from battery import Battery
-from house import House
+from .battery import Battery
+from .house import House
 
 
 class Grid:
@@ -11,7 +11,7 @@ class Grid:
         self.houses -- list of all houses in grid
         self.batteries -- list of all batteries in grid"""
         self.district = 0
-        self.houses: list["House"] = []
+        self.houses = []
         self.batteries = []
 
     def load_grid(self, district) -> None:
@@ -61,9 +61,3 @@ class Grid:
 if __name__ == "__main__":
     grid = Grid()
     grid.load_grid(1)
-
-    for item in grid.houses:
-        print(item)
-
-    for item in grid.batteries:
-        print(item)
