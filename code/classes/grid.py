@@ -71,11 +71,14 @@ class Grid:
                 x = int(split[0])
                 y = int(split[1])
 
+                # make a new Battery object
+                battery = Battery(x, y, capacity)
+
                 # make class Battery object and add it to battery list
-                self.batteries.append(Battery(x, y, capacity))
+                self.batteries.append(battery)
 
                 # set node object type as batteryg
-                self.nodes[(x, y)].type = "battery"
+                self.nodes[(x, y)].type = battery
 
         # load houses data
         with open(
@@ -92,11 +95,13 @@ class Grid:
                 y = int(row[1])
                 maxoutput = float(row[2])
 
+                # make a new House object
+                house = House(x, y, maxoutput)
                 # make a class House object and add it to house list
-                self.houses.append(House(x, y, maxoutput))
+                self.houses.append(house)
 
                 # set node object type to house
-                self.nodes[(x, y)].add_type("house")
+                self.nodes[(x, y)].add_type(house)
             
     # def is_solution(self):
     #     for node in self.nodes:

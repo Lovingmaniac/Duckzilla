@@ -7,7 +7,7 @@ if __name__ == "__main__":
     grid.make_nodes()
     grid.add_connections()
     grid.load_grid(1)
-    visualize(grid)
+    # visualize(grid)
 
     for item in grid.houses:
         print(item)
