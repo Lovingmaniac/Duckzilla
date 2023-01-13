@@ -97,8 +97,6 @@ class Grid:
 
                 # set node object type to house
                 self.nodes[(x, y)].add_type("house")
-<<<<<<< HEAD
-=======
             
     def is_solution(self):
         for node in self.nodes:
@@ -106,9 +104,3 @@ class Grid:
                 
                 
                 pass
-
-
-if __name__ == "__main__":
-    grid = Grid()
-    grid.load_grid(1)
->>>>>>> a0bfca0b5b1507bea966e48a260e0af32281e21b
