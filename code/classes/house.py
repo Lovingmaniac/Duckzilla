@@ -6,7 +6,7 @@ class House:
         self.cables -- a list of cables connected to house"""
         self.location = (x, y)
         self.output = output
-        self.cables = [tuple]
+        self.cables = [tuple] 
 
     def add_cable(self, location: tuple) -> None:
         """Adds a cable to the house object."""

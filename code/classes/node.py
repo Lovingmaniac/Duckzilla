@@ -11,6 +11,3 @@ class Node():
     
     def add_type(self, type):
         self.type = type
-
-    
-
