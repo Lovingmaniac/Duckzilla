@@ -5,6 +5,7 @@ from .house import House
 from .node import Node
 
 
+
 class Grid:
     def __init__(self) -> None:
         """Constructor of class Grid
@@ -12,7 +13,7 @@ class Grid:
         self.houses -- list of all houses in grid
         self.batteries -- list of all batteries in grid"""
         self.district = 0
-        self.houses: list["House"] = []
+        self.houses = []
         self.batteries = []
         self.nodes = {}
 
@@ -96,3 +97,18 @@ class Grid:
 
                 # set node object type to house
                 self.nodes[(x, y)].add_type("house")
+<<<<<<< HEAD
+=======
+            
+    def is_solution(self):
+        for node in self.nodes:
+            if node.get_type() is "house":
+                
+                
+                pass
+
+
+if __name__ == "__main__":
+    grid = Grid()
+    grid.load_grid(1)
+>>>>>>> a0bfca0b5b1507bea966e48a260e0af32281e21b
