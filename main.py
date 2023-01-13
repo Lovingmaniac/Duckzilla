@@ -1,5 +1,6 @@
 from code.classes.grid import Grid
 from code.visualization.visualization import visualize
+from code.algorithms import randomize as rand
 
 if __name__ == "__main__":
     grid = Grid()
@@ -9,9 +10,7 @@ if __name__ == "__main__":
     grid.load_grid(1)
     # visualize(grid)
 
-    for item in grid.houses:
-        print(item)
+    random_grid = rand.Randomize(grid)
+    random_grid.run()
 
-    for item in grid.batteries:
-        print(item)
-
+    print(len(random_grid.grid.houses))

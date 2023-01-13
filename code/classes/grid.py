@@ -102,9 +102,26 @@ class Grid:
 
                 # set node object type to house
                 self.nodes[(x, y)].add_type(house)
-            
-    # def is_solution(self):
-    #     for node in self.nodes:
-    #         if node.get_type() == "house":
-                            
-    #             pass
+
+    def calculate_costs(self):
+        for battery in self.batteries:
+            pass
+
+    # Calculating Manhattan Distance from Scratch
+    def manhattan_distance(point1, point2):
+        distance = 0
+        for x1, x2 in zip(point1, point2):
+            difference = x2 - x1
+            absolute_difference = abs(difference)
+            distance += absolute_difference
+
+        return distance
+
+
+
+    def is_solution(self):
+        for node in self.nodes:
+            if node.get_type() is "house":
+                               
+                pass
+
