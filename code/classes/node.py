@@ -6,5 +6,3 @@ class Node():
 
     def add_connection(self, node):
             self.connections[node.id] = node
-    
-    
