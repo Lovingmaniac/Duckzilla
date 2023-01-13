@@ -1,8 +1,8 @@
 import csv
 
-from battery import Battery
-from house import House
-from node import Node
+from .battery import Battery
+from .house import House
+from .node import Node
 
 
 class Grid:
@@ -14,16 +14,24 @@ class Grid:
         self.district = 0
         self.houses: list["House"] = []
         self.batteries = []
+        self.nodes = {}
 
-    def make_grid(self) -> None:
-        """"""
+    def make_nodes(self) -> None:
+        """Create all nodes for grid."""
         uid = 0
 
-        for x in range(4):
-            for y in range(4):
+        # iterate over each column
+        for x in range(51):
+
+            # iterate over each row
+            for y in range(51):
+
+                # create a new node and update uid
                 node = Node(x, y, uid)
                 uid += 1
-                print(node)
+
+                # add node to nodes dictionary
+                self.nodes[(x, y)] = node
 
     def load_grid(self, district) -> None:
         """Loads grid for district."""
@@ -48,7 +56,11 @@ class Grid:
                 x = int(split[0])
                 y = int(split[1])
 
+                # make class Battery object and add it to battery list
                 self.batteries.append(Battery(x, y, capacity))
+
+                # set node object type as battery
+                self.nodes[(x, y)].type = "battery"
 
         # load houses data
         with open(
@@ -68,14 +80,7 @@ class Grid:
                 # make a class House object and add it to house list
                 self.houses.append(House(x, y, maxoutput))
 
-
-if __name__ == "__main__":
-    grid = Grid()
-    grid.load_grid(1)
-    grid.make_grid()
-
-    for item in grid.houses:
-        print(item)
-
-    for item in grid.batteries:
-        print(item)
+                # set node object to house
+                self.nodes[(x, y)].add_type("house")
+                breakpoint()
+        
