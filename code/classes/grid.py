@@ -98,7 +98,6 @@ class Grid:
                 # set node object type to house
                 self.nodes[(x, y)].add_type("house")
 
-
     def calculate_costs(self):
         for battery in self.batteries:
             pass
@@ -121,3 +120,4 @@ class Grid:
                 
                 
                 pass
+
