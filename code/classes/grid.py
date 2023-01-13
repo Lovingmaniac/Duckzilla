@@ -34,6 +34,20 @@ class Grid:
                 # add node to nodes dictionary
                 self.nodes[(x, y)] = node
 
+    def add_connections(self) -> None:
+        """Adds all connected nodes as connections to all nodes"""
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+        # iterate over each node in grid
+        for node in self.nodes:
+
+            # iterate over all directions and define x-y coordinates
+            for direction in directions:
+                connection = (node[0] + direction[0], node[1] + direction[1])
+                # add connection to node if possible
+                if connection in self.nodes:
+                    self.nodes[(node)].add_connection(connection)
+
     def load_grid(self, district) -> None:
         """Loads grid for district."""
         self.district = district
@@ -81,7 +95,7 @@ class Grid:
                 # make a class House object and add it to house list
                 self.houses.append(House(x, y, maxoutput))
 
-                # set node object to house
+                # set node object type to house
                 self.nodes[(x, y)].add_type("house")
             
     def is_solution(self):
@@ -90,8 +104,3 @@ class Grid:
                 
                 
                 pass
-
-
-if __name__ == "__main__":
-    grid = Grid()
-    grid.load_grid(1)
