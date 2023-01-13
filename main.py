@@ -1,4 +1,4 @@
-from code.classes import grid
+from code.classes.grid import Grid
 
 
 if __name__ == "__main__":
@@ -11,4 +11,3 @@ if __name__ == "__main__":
 
     for item in grid.batteries:
         print(item)
-
