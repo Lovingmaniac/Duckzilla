@@ -82,5 +82,10 @@ class Grid:
 
                 # set node object to house
                 self.nodes[(x, y)].add_type("house")
-                breakpoint()
-        
+            
+    def is_solution(self):
+        for node in self.nodes:
+            if node.get_type() is "house":
+                
+                
+                pass

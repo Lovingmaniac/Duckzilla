@@ -12,5 +12,8 @@ class Node():
     def add_type(self, type):
         self.type = type
 
+    def get_type(self):
+        return self.type
+
     def __repr__(self):
         return f"id: {self.id}, location: {self.coordinates}"
