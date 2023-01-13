@@ -74,7 +74,7 @@ class Grid:
                 # make class Battery object and add it to battery list
                 self.batteries.append(Battery(x, y, capacity))
 
-                # set node object type as battery
+                # set node object type as batteryg
                 self.nodes[(x, y)].type = "battery"
 
         # load houses data
