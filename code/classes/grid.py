@@ -118,10 +118,10 @@ class Grid:
         return distance
 
 
-
+    # moet nog aangepast worden
     def is_solution(self):
         for node in self.nodes:
-            if node.get_type() is "house":
+            if node.get_type() == "house":
                                
                 pass
 
