@@ -17,8 +17,15 @@ class Battery:
         return f"loc:{self.location}, cap:{self.current_capacity}"
 
     def add_house(self, house: House) -> None:
-        """Adds a house to self and updates current capacity."""
+        """Adds a house to self, sets house to "connected"
+        and updates current capacity."""
+        # add house to house list
         self.houses.append(house)
+
+        # set house to "connected"
+        house.set_connected()
+
+        # update battery capacity
         self.current_capacity -= house.get_output()
 
     def remove_house(self, house: House) -> None:

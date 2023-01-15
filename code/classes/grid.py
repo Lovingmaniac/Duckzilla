@@ -117,11 +117,23 @@ class Grid:
 
         return distance
 
-
     # moet nog aangepast worden
     def is_solution(self):
-        for node in self.nodes:
-            if node.get_type() == "house":
-                               
-                pass
+        """Returns True if all houses are connected to a battery, False otherwise."""
 
+        # iterate over all nodes in grid
+        for node in self.nodes:
+
+            # find house nodes
+            if type(node) == type(House):
+
+                # if it is connected, continue
+                if node.is_connected is True:
+                    continue
+
+                # if not connected, this is no valid solution
+                else:
+                    return False
+
+        # success
+        return True

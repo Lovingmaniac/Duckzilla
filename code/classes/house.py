@@ -7,6 +7,7 @@ class House:
         self.location = (x, y)
         self.output = output
         self.cables = [tuple]
+        self.is_connected = False
 
     def add_cable(self, location: tuple) -> None:
         """Adds a cable to the house object."""
@@ -28,6 +29,10 @@ class House:
     def get_location(self):
         """Returns the x-y coordinations of given house."""
         return f"{self.location[0]},{self.location[1]}"
+
+    def set_connected(self):
+        """Sets house to connected when it is connected to a battery."""
+        self.is_connected = True
 
     # def get_cables(self) -> list[tuple]:
     #     """Returns the cables connected to house."""
