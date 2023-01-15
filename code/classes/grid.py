@@ -14,6 +14,7 @@ class Grid:
         self.batteries -- list of all batteries in grid"""
         self.district = 0
         self.houses = []
+        self.unconnected_houses = []
         self.batteries = []
         self.nodes = {}
 
@@ -97,8 +98,10 @@ class Grid:
 
                 # make a new House object
                 house = House(x, y, maxoutput)
+
                 # make a class House object and add it to house list
                 self.houses.append(house)
+                self.unconnected_houses.append(house)
 
                 # set node object type to house
                 self.nodes[(x, y)].add_type(house)
@@ -118,7 +121,7 @@ class Grid:
         return distance
 
     # moet nog aangepast worden
-    def is_solution(self):
+    def is_solution(self) -> bool:
         """Returns True if all houses are connected to a battery, False otherwise."""
 
         # iterate over all nodes in grid
