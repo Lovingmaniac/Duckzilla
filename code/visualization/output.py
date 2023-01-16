@@ -1,8 +1,8 @@
 import json
 
-from code.classes import Battery
-from code.classes import Grid
-from code.classes import House
+from code.classes.battery import Battery
+from code.classes.grid import Grid
+from code.classes.house import House
 
 
 def output(grid):

@@ -12,7 +12,7 @@ class Grid:
         self.district -- the district info
         self.houses -- list of all houses in grid
         self.batteries -- list of all batteries in grid"""
-        self.district = 0
+        self.district = 1
         self.houses = []
         self.unconnected_houses = []
         self.batteries = []
@@ -78,7 +78,7 @@ class Grid:
                 # make class Battery object and add it to battery list
                 self.batteries.append(battery)
 
-                # set node object type as batteryg
+                # set node object type as battery
                 self.nodes[(x, y)].type = battery
 
         # load houses data
@@ -111,12 +111,13 @@ class Grid:
             pass
 
     # Calculating Manhattan Distance from Scratch
-    def manhattan_distance(point1, point2):
+    def manhattan_distance(self, point1, point2):
         distance = 0
         for x1, x2 in zip(point1, point2):
             difference = x2 - x1
             absolute_difference = abs(difference)
             distance += absolute_difference
+            # print(distance)
 
         return distance
 

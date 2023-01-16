@@ -52,6 +52,7 @@ def visualize(grid):
     ax.yaxis.set_minor_locator(plt.MultipleLocator(1))
     ax.grid(True, which='both', axis='both',
     linestyle='-', color='gray', linewidth=0.5)
+    plt.savefig('output.png')
     plt.show()
 
 

@@ -34,9 +34,10 @@ class House:
         """Sets house to connected when it is connected to a battery."""
         self.is_connected = True
 
-    # def get_cables(self) -> list[tuple]:
-    #     """Returns the cables connected to house."""
-    #     return self.cables
+    def get_cables(self):
+        """Returns the cables connected to house."""
+        # return self.cables
+        pass
 
     def __repr__(self) -> str:
         """Returns the correct representation for house class."""
