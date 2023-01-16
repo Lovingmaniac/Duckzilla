@@ -23,16 +23,15 @@ def run(grid):
         # checks wether the battery still has capacity and if there are houses left
         while battery.has_space(house) and grid.unconnected_houses:
             battery.add_house(house)
-            house = grid.unconnected_houses.pop()   
+            house = grid.unconnected_houses.pop()
+    grid.make_cables()
 
 def get_score(grid):
-        
+    '''takes teh manhattan distance between a battery and a house and adds that to a
+    so that there is an indication of the length of the cables'''
     cables = 0
     for battery in grid.batteries:
         for house in battery.houses:
             length = grid.manhattan_distance(battery.location, house.location)
             cables += length
     return cables
-
-
-

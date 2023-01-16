@@ -9,7 +9,7 @@ import numpy as np
 
 def visualize(grid):
     battery_img = 'data/battery.jpg'
-    house_img = 'data/house.png'
+    house_img = 'data/house.jpg'
 
 
     #-------------------------------------test data----------------------------

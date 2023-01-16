@@ -141,3 +141,54 @@ class Grid:
 
         # success
         return True
+
+    def make_cables(self):
+        ''' generates cables between house and battery, first moves horizontally
+        and then vertically'''
+
+        # iterates over the batteries
+        for battery in self.batteries:
+
+            # iterates over the houses in the batteries
+            for house in battery.houses:
+                # variables for location house and batteries
+                x_house = house.location[0]
+                y_house = house.location[1]
+
+                x_battery = battery.location[0]
+                y_battery = battery.location[1]
+
+                # adds base of the house
+                house.add_cable((x_house, y_house))
+
+                # finds the coordinates for every cable in every quadrant of the battery grid
+                if x_house < x_battery and y_house > y_battery:
+                    while not x_house == x_battery:
+                        x_house += 1
+                        house.add_cable((x_house, y_house))
+                    while not y_house == y_battery:
+                        y_house -= 1
+                        house.add_cable((x_house, y_house))
+                elif x_house < x_battery and y_house < y_battery:
+                    while not x_house == x_battery:
+                        x_house += 1
+                        house.add_cable((x_house, y_house))
+                    while not y_house == y_battery:
+                        y_house += 1
+                        house.add_cable((x_house, y_house))
+                elif x_house > x_battery and y_house > y_battery:
+                    while not x_house == x_battery:
+                        x_house -= 1
+                        house.add_cable((x_house, y_house))
+                    while not y_house == y_battery:
+                        y_house -= 1
+                        house.add_cable((x_house, y_house))
+                elif x_house > x_battery and y_house < y_battery:
+                    while not x_house == x_battery:
+                        x_house -= 1
+                        house.add_cable((x_house, y_house))
+                    while not y_house == y_battery:
+                        y_house += 1
+                        house.add_cable((x_house, y_house))
+
+

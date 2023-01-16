@@ -6,7 +6,7 @@ class House:
         self.cables -- a list of cables connected to house"""
         self.location = (x, y)
         self.output = output
-        self.cables = [tuple]
+        self.cables = []
         self.is_connected = False
 
     def add_cable(self, location: tuple) -> None:
@@ -36,8 +36,10 @@ class House:
 
     def get_cables(self):
         """Returns the cables connected to house."""
-        # return self.cables
-        pass
+        cable_list = []
+        for cable in self.cables:
+            cable_list.append(f"{cable[0]}, {cable[1]}")
+        return cable_list
 
     def __repr__(self) -> str:
         """Returns the correct representation for house class."""
