@@ -40,9 +40,10 @@ def get_score(grid):
 
 def baseline(grid):
     scores = []
-    for i in range(100):
+    for i in range(1000):
         base_grid = copy.deepcopy(grid)
         run(base_grid)
-        scores.append(get_score(base_grid))
+        score = get_score(base_grid)
+        scores.append(score)
     return scores
 
