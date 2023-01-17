@@ -16,4 +16,4 @@ if __name__ == "__main__":
     print(rand.get_score(new_grid))
 
     output(new_grid)
-    visualize(new_grid)
+    # visualize(new_grid)
