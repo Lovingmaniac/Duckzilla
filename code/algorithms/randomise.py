@@ -30,8 +30,11 @@ def get_score(grid):
     '''takes teh manhattan distance between a battery and a house and adds that to a
     so that there is an indication of the length of the cables'''
     cables = 0
+    number_cables = 0
     for battery in grid.batteries:
         for house in battery.houses:
-            length = grid.manhattan_distance(battery.location, house.location)
-            cables += length
+            distance = grid.manhattan_distance(battery.location, house.location)
+            cables += distance
+            number_cables += len(house.cables)
+    print(f'num_cables: {number_cables}')
     return cables

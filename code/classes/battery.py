@@ -2,7 +2,7 @@ from .house import House
 
 
 class Battery:
-    def __init__(self, x: int, y: int, capacity: float) -> None:
+    def __init__(self, x: int, y: int, capacity: float, uid: int) -> None:
         """Constructor of battery
         self.location -- x-y coordinates of battery in tuple
         self.capacity -- the total capacity of energy for battery
@@ -12,6 +12,7 @@ class Battery:
         self.capacity = capacity
         self.current_capacity = capacity
         self.houses: list[House] = []
+        self.id = uid
 
     def __repr__(self):
         return f"loc:{self.location}, cap:{self.current_capacity}"

@@ -61,6 +61,7 @@ class Grid:
 
             # skip the header
             next(reader, None)
+            uid = 1
 
             # iterate over each row in csv file
             for row in reader:
@@ -73,13 +74,16 @@ class Grid:
                 y = int(split[1])
 
                 # make a new Battery object
-                battery = Battery(x, y, capacity)
+                battery = Battery(x, y, capacity, uid)
 
                 # make class Battery object and add it to battery list
                 self.batteries.append(battery)
 
                 # set node object type as battery
                 self.nodes[(x, y)].type = battery
+
+                # make new id number
+                uid += 1
 
         # load houses data
         with open(

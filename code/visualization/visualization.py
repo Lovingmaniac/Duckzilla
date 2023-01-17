@@ -38,12 +38,21 @@ def visualize(grid):
         x_houses.append(house.location[0])
         y_houses.append(house.location[1])
 
-
-
+            
+            
     #-------------------------------------plot---------------------------------
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
     imscatter(x_batteries, y_batteries, battery_img, zoom=0.08, ax=ax)
     imscatter(x_houses,y_houses,house_img, zoom=0.007, ax=ax)
+    for battery in grid.batteries:
+        colors = ['red', 'blue', 'green', 'yellow', 'orange']
+        for house in battery.houses:
+            x_cable = []
+            y_cable = []
+            for cable in house.cables:
+                x_cable.append(cable[0])
+                y_cable.append(cable[1])
+                ax.plot(x_cable, y_cable, color= colors[battery.id - 1])
     ax.set_xlim(0, 50)
     ax.set_ylim(0, 50)
     ax.set_xticks(range(0, 55, 10))
