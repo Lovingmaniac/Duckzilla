@@ -136,7 +136,7 @@ class Grid:
             if type(node) == type(House):
 
                 # if it is connected, continue
-                if node.is_connected is True:
+                if node.is_connected:
                     continue
 
                 # if not connected, this is no valid solution
@@ -160,19 +160,22 @@ class Grid:
                 x_house, y_house = house.location
                 x_battery, y_battery = battery.location
 
-                # add first cable to house
+                # add first cable point to house
                 house.add_cable((x_house, y_house))
 
                 # set step for x and y direction
                 x_step = 1 if x_house < x_battery else -1
                 y_step = 1 if y_house < y_battery else -1
 
-                # add x- step and x-cable to house
+                # add x- step and x-cable point to house
                 while not x_house == x_battery:
                     x_house += x_step
                     house.add_cable((x_house, y_house))
 
-                # add y-step and y-cable to house
+                # add y-step and y-cable point to house
                 while not y_house == y_battery:
                     y_house += y_step
                     house.add_cable((x_house, y_house))
+
+                # set house to "connected"
+                house.set_connected()
