@@ -36,5 +36,13 @@ def get_score(grid):
             distance = grid.manhattan_distance(battery.location, house.location)
             cables += distance
             number_cables += len(house.cables)
-    print(f'num_cables: {number_cables}')
     return cables
+
+def baseline(grid):
+    scores = []
+    for i in range(100):
+        base_grid = copy.deepcopy(grid)
+        run(base_grid)
+        scores.append(get_score(base_grid))
+    return scores
+
