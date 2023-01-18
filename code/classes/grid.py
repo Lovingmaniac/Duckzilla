@@ -1,4 +1,5 @@
 import csv
+import copy
 
 from .battery import Battery
 from .house import House
@@ -29,7 +30,7 @@ class Grid:
             for y in range(51):
 
                 # create a new node and update uid
-                node = Node(x, y, uid)
+            node = Node(x, y, uid)
                 uid += 1
 
                 # add node to nodes dictionary
@@ -187,3 +188,8 @@ class Grid:
 
                 # set house to "connected"
                 house.set_connected()
+
+    def copy(self):
+        """Makes deepcopy of all grid nodes."""
+        nodes_copy = copy.deepcopy(self.nodes)
+        return self.nodes        

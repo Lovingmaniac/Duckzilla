@@ -2,10 +2,10 @@ import copy
 import random
 
 
-def make_new_grid(grid):
-    """take the grid and make a deep copy and return this"""
-    new_grid = copy.deepcopy(grid)
-    return new_grid
+def get_grid_copy(grid):
+    """Returns a deep copy of all nodes in grid."""
+    return grid.copy()
+
 
 def run(grid):
     """Shuffles the list of unconnected houses and then one by one adds this to the batteries
@@ -26,6 +26,7 @@ def run(grid):
             house = grid.unconnected_houses.pop()
     grid.make_cables()
 
+
 def get_score(grid):
     """takes the manhattan distance between a battery and a house and adds that to a
     so that there is an indication of the length of the cables"""
@@ -37,6 +38,7 @@ def get_score(grid):
             cables += distance
             number_cables += len(house.cables)
     return cables
+
 
 def baseline(grid):
     """Randomises the connections of the houses 100 times and appends the
