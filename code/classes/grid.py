@@ -14,10 +14,8 @@ class Grid:
         self.batteries -- list of all batteries in grid"""
         self.district = 1
         self.houses = []
-        #self.unconnected_houses = []
         self.batteries = []
         self.nodes = {}
-        #self.total_costs = 0
 
     def make_nodes(self) -> None:
         """Create all nodes for grid."""
