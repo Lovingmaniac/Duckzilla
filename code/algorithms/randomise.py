@@ -39,11 +39,12 @@ def get_score(grid):
     return cables
 
 def baseline(grid):
+    """ Randomises the connections of the houses 100 times and appends the
+    score to scores list"""
     scores = []
-    for i in range(1000):
+    for i in range(100):
         base_grid = copy.deepcopy(grid)
         run(base_grid)
-        score = get_score(base_grid)
-        scores.append(score)
+        scores.append(get_score(base_grid))
     return scores
 

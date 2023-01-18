@@ -12,10 +12,9 @@ if __name__ == "__main__":
     
 
     new_grid = rand.make_new_grid(grid)
-    #print(rand.baseline(new_grid))
-    print(min(rand.baseline(new_grid)))
-    # rand.run(new_grid)
+    # print(rand.baseline(new_grid))
+    rand.run(new_grid)
     # print(rand.get_score(new_grid))
 
-    output(new_grid)
-    # visualize(new_grid)
+    # output(new_grid)
+    visualize(new_grid)
