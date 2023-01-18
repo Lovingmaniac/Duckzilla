@@ -45,6 +45,8 @@ def baseline(grid):
     for i in range(100):
         base_grid = copy.deepcopy(grid)
         run(base_grid)
-        scores.append(get_score(base_grid))
+        with open('data/output/histogram.txt', 'w') as f:
+            f.write(base_grid.calculate_costs())
+
     return scores
 
