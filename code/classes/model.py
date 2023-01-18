@@ -1,3 +1,5 @@
+import copy
+
 from .battery import Battery
 from .grid import Grid
 from .house import House
@@ -106,7 +108,9 @@ class Model:
                 # set house to "connected"
                 house.set_connected()
 
-    def copy(self):
-        """Makes deepcopy of all grid nodes."""
-        nodes_copy = copy.deepcopy(self.nodes)
-        return self.nodes        
+    def copy(self) -> 'Model':
+        """Returns shallow copy of all grid and costs score."""
+        new_model = copy.copy(self)
+        new_model.total_costs = copy.copy(self.total_costs)
+
+        return new_model
