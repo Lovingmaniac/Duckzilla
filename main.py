@@ -1,17 +1,17 @@
-from code.classes.grid import Grid
+from code.classes.model import Model
 from code.visualization.visualization import visualize
 from code.algorithms import randomise as rand
 from code.visualization.output import output
 
 if __name__ == "__main__":
-    grid = Grid()
+    model = Model()
 
-    grid.make_nodes()
-    grid.add_connections()
-    grid.load_grid(3)
+    model.make_nodes()
+    model.add_connections()
+    model.load_grid(3)
     
 
-    new_grid = rand.make_new_grid(grid)
+    new_grid = rand.make_new_grid(model)
     # print(rand.baseline(new_grid))
     rand.run(new_grid)
     # rand.baseline(new_grid, 1)
