@@ -5,7 +5,6 @@ from .house import House
 from .node import Node
 
 
-
 class Grid:
     def __init__(self) -> None:
         """Constructor of class Grid
