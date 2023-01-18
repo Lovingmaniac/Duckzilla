@@ -5,16 +5,16 @@ from code.classes.grid import Grid
 from code.classes.house import House
 
 
-def output(grid):
+def output(model):
     """This function ...."""
     # get district info
-    district_info = {"district": grid.district, "costs-shared": grid.calculate_costs()}
+    district_info = {"district": model.district, "costs-shared": model.calculate_costs()}
 
     # initialize list of dictionaries
     output = [district_info]
 
     # initialize list of houses for each battery
-    for battery in grid.batteries:
+    for battery in model.batteries:
         houses = []
 
         # initialize house variables to dictionary

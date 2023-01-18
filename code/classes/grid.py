@@ -69,6 +69,7 @@ class Grid:
                 # set node object type as battery
                 self.nodes[(x, y)].type = battery
 
+
                 # make new id number
                 uid += 1
 
@@ -92,7 +93,6 @@ class Grid:
 
                 # make a class House object and add it to house list
                 self.houses.append(house)
-                self.unconnected_houses.append(house)
 
                 # set node object type to house
                 self.nodes[(x, y)].add_type(house)

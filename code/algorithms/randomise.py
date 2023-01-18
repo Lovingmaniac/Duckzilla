@@ -11,12 +11,14 @@ def run(model):
 
     # Shuffles the unconnected houses
     random.shuffle(model.unconnected_houses)
+    random.shuffle(model.batteries)
 
     # iterate over all the batteries
     for battery in model.batteries:
 
         # take the last house in the list
         house = model.unconnected_houses.pop()
+        
 
         # checks wether the battery still has capacity and if there are houses left
         while battery.has_space(house) and model.unconnected_houses:
@@ -38,13 +40,18 @@ def get_score(model):
     return cables
 
 
-def baseline(model):
+def baseline(model, runs):
     """Randomises the connections of the houses 100 times and appends the
     score to scores list"""
 
-    with open('data/output/histogram.txt', 'w') as f:
-        for i in range(100):
-            base_model = copy.deepcopy(model)
+    with open('output/histogram.txt', 'w') as f:
+        for i in range(runs):
+            base_model = model.copy()
             run(base_model)
-        
-            f.write(f'{base_model.total_costs}\n')
+
+            if model.is_solution:
+                f.write(f'{base_model.calculate_costs()}\n')
+            else:
+                f.write('0\n')
+            if i in range(0, runs, 100):
+                print(base_model.calculate_costs())

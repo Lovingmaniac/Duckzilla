@@ -12,8 +12,9 @@ class Model:
         self.batteries = grid.batteries
         self.houses = grid.houses
         self.nodes = grid.nodes
-        self.unconnected_houses = []
+        self.unconnected_houses = grid.houses
         self.total_costs = 0
+        self.district = grid.district
 
     def add_connections(self) -> None:
         """Adds all connected nodes as connections to all nodes"""
@@ -33,14 +34,17 @@ class Model:
     def calculate_costs(self) -> None:
         """Calculates the total costs for district."""
         # iterate over all batteries
+        total_costs = 0
         for battery in self.batteries:
-            self.total_costs += 5000
+            total_costs += 5000
 
             # iterate over all houses connected to battery
             for house in battery.houses:
 
                 # get total costs for house and add it to the total costs
-                self.total_costs += ((len(house.cables) - 1) * 9)
+                total_costs += ((len(house.cables) - 1) * 9)
+        self.total_costs = total_costs
+        return total_costs
 
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):
@@ -110,7 +114,7 @@ class Model:
 
     def copy(self) -> 'Model':
         """Returns shallow copy of all grid and costs score."""
-        new_model = copy.copy(self)
+        new_model = copy.deepcopy(self)
         new_model.total_costs = copy.copy(self.total_costs)
 
         return new_model
