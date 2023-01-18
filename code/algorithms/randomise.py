@@ -41,12 +41,10 @@ def get_score(grid):
 def baseline(grid):
     """ Randomises the connections of the houses 100 times and appends the
     score to scores list"""
-    scores = []
-    for i in range(100):
-        base_grid = copy.deepcopy(grid)
-        run(base_grid)
-        with open('data/output/histogram.txt', 'w') as f:
-            f.write(base_grid.calculate_costs())
 
-    return scores
-
+    with open('data/output/histogram.txt', 'w') as f:
+        for i in range(100):
+            base_grid = copy.deepcopy(grid)
+            run(base_grid)
+        
+            f.write(f'{base_grid.total_costs}\n')

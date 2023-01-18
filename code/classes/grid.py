@@ -122,6 +122,7 @@ class Grid:
                 # get total costs for house and add it to the total costs
                 costs_house = (len(house.cables) - 1 * 9) + 5000
                 self.total_costs += costs_house
+                
 
 
     # Calculating Manhattan Distance from Scratch
