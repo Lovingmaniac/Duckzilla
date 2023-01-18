@@ -14,7 +14,7 @@ def run(grid):
     # Shuffles the unconnected houses
     random.shuffle(grid.unconnected_houses)
     random.shuffle(grid.batteries)
-    
+
     # iterate over all the batteries
     for battery in grid.batteries:
 
@@ -45,7 +45,7 @@ def baseline(grid, new_range):
     """Randomises the connections of the houses 100 times and appends the
     score to scores list"""
 
-    with open('data/output/histogram.txt', 'w') as f:
+    with open('output/histogram.txt', 'w') as f:
         for i in range(new_range):
             base_grid = copy.deepcopy(grid)
             run(base_grid)

@@ -8,7 +8,7 @@ from code.classes.house import House
 def output(grid):
     """This function ...."""
     # get district info
-    district_info = {"district": grid.district, "costs-shared": 10198}
+    district_info = {"district": grid.district, "costs-shared": grid.calculate_costs()}
 
     # initialize list of dictionaries
     output = [district_info]
@@ -39,5 +39,5 @@ def output(grid):
         output.append(battery_info)
 
     # write to file with correct indentation
-    with open("test_output.json", "w") as write_file:
+    with open("output/output.json", "w") as write_file:
         json.dump(output, write_file, indent=2)
