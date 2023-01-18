@@ -122,7 +122,6 @@ class Grid:
                 costs_house = (len(house.cables) - 1 * 9) + 5000
                 self.total_costs += costs_house
 
-
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):
         distance = 0
@@ -156,8 +155,8 @@ class Grid:
         return True
 
     def make_cables(self):
-        ''' generates cables between house and battery, first moves horizontally
-        and then vertically'''
+        """generates cables between house and battery, first moves horizontally
+        and then vertically"""
 
         # iterates over the batteries
         for battery in self.batteries:
