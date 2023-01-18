@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, x, y, uid):
+    def __init__(self, x, y):
         self.coordinates = (x, y)
         self.connections = []
         self.type = None
