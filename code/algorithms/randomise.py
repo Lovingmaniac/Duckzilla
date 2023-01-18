@@ -13,17 +13,20 @@ def run(grid):
 
     # Shuffles the unconnected houses
     random.shuffle(grid.unconnected_houses)
-
+    random.shuffle(grid.batteries)
+    
     # iterate over all the batteries
     for battery in grid.batteries:
 
         # take the last house in the list
         house = grid.unconnected_houses.pop()
+        
 
         # checks wether the battery still has capacity and if there are houses left
         while battery.has_space(house) and grid.unconnected_houses:
             battery.add_house(house)
             house = grid.unconnected_houses.pop()
+
     grid.make_cables()
 
 def get_score(grid):
@@ -38,13 +41,19 @@ def get_score(grid):
             number_cables += len(house.cables)
     return cables
 
-def baseline(grid):
+def baseline(grid, new_range):
     """Randomises the connections of the houses 100 times and appends the
     score to scores list"""
 
     with open('data/output/histogram.txt', 'w') as f:
-        for i in range(100):
+        for i in range(new_range):
             base_grid = copy.deepcopy(grid)
             run(base_grid)
-        
-            f.write(f'{base_grid.total_costs}\n')
+
+            if len(base_grid.unconnected_houses) > 0: 
+                f.write('0\n')
+            else:
+                f.write(f'{base_grid.calculate_costs()}\n')
+            
+            if i in range(0, new_range, 100):
+                print(base_grid.calculate_costs())

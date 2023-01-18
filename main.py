@@ -8,14 +8,14 @@ if __name__ == "__main__":
 
     grid.make_nodes()
     grid.add_connections()
-    grid.load_grid(1)
+    grid.load_grid(3)
     
 
     new_grid = rand.make_new_grid(grid)
     # print(rand.baseline(new_grid))
     # rand.run(new_grid)
-    rand.baseline(new_grid)
-    print(rand.get_score(new_grid))
+    rand.baseline(new_grid, 10000)
+    # print(f'score: {rand.get_score(new_grid)}')
 
     # output(new_grid)
     # visualize(new_grid)

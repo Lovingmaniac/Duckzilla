@@ -110,17 +110,20 @@ class Grid:
                 # set node object type to house
                 self.nodes[(x, y)].add_type(house)
 
-    def calculate_costs(self) -> None:
+    def calculate_costs(self) -> str:
         """Calculates the total costs for district."""
+
+        total_costs = 0
         # iterate over all batteries
         for battery in self.batteries:
-            self.total_costs += 5000
+            total_costs += 5000
 
             # iterate over all houses connected to battery
             for house in battery.houses:
-
                 # get total costs for house and add it to the total costs
-                self.total_costs += ((len(house.cables) - 1) * 9)
+                total_costs += ((len(house.cables) - 1) * 9)
+        self.total_costs = total_costs
+        return total_costs
 
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):
