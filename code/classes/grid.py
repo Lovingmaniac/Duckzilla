@@ -114,13 +114,13 @@ class Grid:
         """Calculates the total costs for district."""
         # iterate over all batteries
         for battery in self.batteries:
+            self.total_costs += 5000
 
             # iterate over all houses connected to battery
             for house in battery.houses:
 
                 # get total costs for house and add it to the total costs
-                costs_house = (len(house.cables) - 1 * 9) + 5000
-                self.total_costs += costs_house
+                self.total_costs += ((len(house.cables) - 1) * 9)
 
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):
