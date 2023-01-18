@@ -1,5 +1,4 @@
 import csv
-import copy
 
 from .battery import Battery
 from .house import House
