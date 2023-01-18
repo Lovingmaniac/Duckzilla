@@ -45,7 +45,7 @@ class House:
 
         cable_list = []
         for cable in self.cables:
-            cable_list.append(f"{cable[0]}, {cable[1]}")
+            cable_list.append(f"{cable[0]},{cable[1]}")
         return cable_list
 
     def __repr__(self) -> str:
