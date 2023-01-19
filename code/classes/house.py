@@ -1,3 +1,6 @@
+from collections import namedtuple
+
+
 class House:
     def __init__(self, x: int, y: int, output: float) -> None:
         """Constructor of class House
@@ -5,10 +8,9 @@ class House:
         self.output -- the amount of energy outputted by house
         self.cables -- a list of cables connected to house"""
 
-        self.location = (x, y)
+        self.location = namedtuple("location", "x y")(x, y)    
         self.output = output
         self.cables = []
-        self.is_connected = False
 
     def add_cable(self, location: tuple) -> None:
         """Adds a cable to the house object."""
@@ -43,10 +45,7 @@ class House:
     def get_cables(self) -> list:
         """Returns the cables connected to house."""
 
-        cable_list = []
-        for cable in self.cables:
-            cable_list.append(f"{cable[0]},{cable[1]}")
-        return cable_list
+        return [f"{cable[0]},{cable[1]}" for cable in self.cables]
 
     def __repr__(self) -> str:
         """Returns the correct representation for house class."""

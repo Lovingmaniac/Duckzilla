@@ -9,8 +9,8 @@ from .node import Node
 class Model:
     def __init__(self, grid: Grid) -> None:
         self.grid = grid
-        self.batteries = grid.batteries
-        self.houses = grid.houses
+        self.batteries: list[Battery] = grid.batteries
+        self.houses: list[House] = grid.houses
         self.nodes = grid.nodes
         self.unconnected_houses = grid.houses
         self.total_costs = 0
@@ -29,7 +29,7 @@ class Model:
 
                 # add connection to node if possible
                 if connection in self.nodes:
-                    self.nodes[(node)].add_connection(connection)
+                    self.nodes[node].add_connection(connection)
 
     def calculate_costs(self) -> None:
         """Calculates the total costs for district."""
@@ -62,19 +62,10 @@ class Model:
         """Returns True if all houses are connected to a battery, False otherwise."""
 
         # iterate over all nodes in grid
-        for node in self.nodes:
-
-            # find house nodes
-            if type(node) == type(House):
-
-                # if it is connected, continue
-                if node.is_connected:
-                    continue
-
-                # if not connected, this is no valid solution
-                else:
-                    return False
-
+        for house in self.houses:
+            if not house.is_connected:
+                return False
+        
         # success
         return True
 
