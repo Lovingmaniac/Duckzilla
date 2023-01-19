@@ -62,7 +62,7 @@ def baseline(model, runs):
             if costs < min_costs:
                 min_costs = costs
                 print(min_costs)
-                visualize(base_model)        
+                # visualize(base_model)        
             
             
             if model.is_solution:

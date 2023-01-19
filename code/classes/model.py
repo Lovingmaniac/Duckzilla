@@ -84,6 +84,7 @@ class Model:
 
                 # add first cable point to house
                 house.add_cable((x_house, y_house))
+                self.nodes[(x_house, y_house)].set_cable()
 
                 # set step for x and y direction
                 x_step = 1 if x_house < x_battery else -1
@@ -93,11 +94,13 @@ class Model:
                 while not x_house == x_battery:
                     x_house += x_step
                     house.add_cable((x_house, y_house))
+                    self.nodes[(x_house, y_house)].set_cable()
 
                 # add y-step and y-cable point to house
                 while not y_house == y_battery:
                     y_house += y_step
                     house.add_cable((x_house, y_house))
+                    self.nodes[(x_house, y_house)].set_cable()
 
                 # set house to "connected"
                 house.set_connected()
