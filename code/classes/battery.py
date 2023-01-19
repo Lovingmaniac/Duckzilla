@@ -1,4 +1,5 @@
 from .house import House
+from collections import namedtuple
 
 
 class Battery:
@@ -8,13 +9,13 @@ class Battery:
         self.capacity -- the total capacity of energy for battery
         self.current_capacity -- the remaining capacity for battery left
         self.houses -- a list of houses that are connected to the battery"""
-        self.location = (x, y)
+        self.location = namedtuple("location", "x y")(x, y)
         self.capacity = capacity
         self.current_capacity = capacity
         self.houses: list[House] = []
         self.id = uid
 
-    def __repr__(self):
+    def __str__(self):
         return f"loc:{self.location}, cap:{self.current_capacity}"
 
     def add_house(self, house: House) -> None:
@@ -31,7 +32,7 @@ class Battery:
 
     def remove_house(self, house: House) -> None:
         """Removes a house from battery and updates current capacity."""
-        self.houses.delete(house)
+        self.houses.remove(house)
         self.current_capacity += house.getoutput()
 
     def get_capacity(self) -> float:
@@ -45,9 +46,4 @@ class Battery:
     def has_space(self, house: House) -> bool:
         """Returns true if the battery has sufficient space for a house
         else returns false."""
-        # if output of house is more than remaining battery capacity, return False
-        if house.get_output() > self.current_capacity:
-            return False
-            # retun true if output of house is smaller than remaining battery capacy
-        else:
-            return True
+        return self.current_capacity > house.get_output()
