@@ -114,7 +114,12 @@ class Model:
 
     def copy(self) -> 'Model':
         """Returns shallow copy of all grid and costs score."""
-        new_model = copy.deepcopy(self)
+
+        # make shallow copy of model
+        new_model = copy.copy(self)
+
+        # only copy the attributes needed for algorithms
+        new_model.unconnected_houses = copy.copy(self.unconnected_houses)
         new_model.total_costs = copy.copy(self.total_costs)
 
         return new_model
