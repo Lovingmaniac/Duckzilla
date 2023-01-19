@@ -12,11 +12,11 @@ if __name__ == "__main__":
     
     model = Model(grid)
     
-    new_model = model.copy()
+    # new_model = model.copy()
     # print(rand.baseline(new_grid))
     
-    rand.baseline(new_model, 10)
-    print(f'score: {rand.get_score(new_model)}')
+    rand.baseline(model, 100000)
+    # print(f'score: {rand.get_score(new_model)}')
     
     # rand.run(new_model)
     # output(new_model)

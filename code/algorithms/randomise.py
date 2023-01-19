@@ -1,8 +1,9 @@
 import copy
 import random
-
+import time
 
 from code.classes.model import Model
+from code.visualization.visualization import visualize
 
 
 def run(model):
@@ -44,14 +45,25 @@ def baseline(model, runs):
     """Randomises the connections of the houses 100 times and appends the
     score to scores list"""
 
-    with open('output/histogram.txt', 'w') as f:
+    min_costs = 100000
+    counter = 0
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    with open(f'output/histogram_{timestr}.txt', 'w') as f:
         for i in range(runs):
             base_model = model.copy()
             run(base_model)
-
+            costs = base_model.calculate_costs()
+            if costs < min_costs:
+                min_costs = costs
+                print(min_costs)
+                visualize(base_model)
+            
             if model.is_solution:
-                f.write(f'{base_model.calculate_costs()}\n')
+                f.write(f'{costs}\n')
             else:
                 f.write('0\n')
             if i in range(0, runs, 100):
                 print(base_model.calculate_costs())
+                print(counter)
+                counter += 1
+

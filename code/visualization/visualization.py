@@ -2,12 +2,13 @@ import matplotlib.pyplot as plt
 import json
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import numpy as np
+import time
 
 # Read image
 # image = imread('house.png')
+timestr = time.strftime("%Y%m%d-%H%M%S")
 
-
-def visualize(grid):
+def visualize(model):
     battery_img = "data/battery.jpg"
     house_img = "data/house.jpg"
 
@@ -29,19 +30,19 @@ def visualize(grid):
     y_houses = []
 
     # go over each battery and house node in grid
-    for battery in grid.batteries:
+    for battery in model.batteries:
         x_batteries.append(battery.location[0])
         y_batteries.append(battery.location[1])
 
-    for house in grid.houses:
+    for house in model.houses:
         x_houses.append(house.location[0])
         y_houses.append(house.location[1])
 
     # -------------------------------------plot---------------------------------
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
     imscatter(x_batteries, y_batteries, battery_img, zoom=0.08, ax=ax)
-    imscatter(x_houses, y_houses, house_img, zoom=0.008, ax=ax)
-    for battery in grid.batteries:
+    imscatter(x_houses, y_houses, house_img, zoom=0.08, ax=ax)
+    for battery in model.batteries:
         colors = ["red", "blue", "green", "yellow", "orange"]
         for house in battery.houses:
             x_cable = []
@@ -57,7 +58,8 @@ def visualize(grid):
     ax.xaxis.set_minor_locator(plt.MultipleLocator(1))
     ax.yaxis.set_minor_locator(plt.MultipleLocator(1))
     ax.grid(True, which="both", axis="both", linestyle="-", color="gray", linewidth=0.5)
-    plt.savefig("output.png")
+    fig.suptitle(f'costs: {model.calculate_costs()}')
+    plt.savefig(f"output/grid_{timestr}.png")
     plt.show()
 
 
