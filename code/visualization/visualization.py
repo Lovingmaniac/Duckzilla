@@ -10,7 +10,7 @@ timestr = time.strftime("%Y%m%d-%H%M%S")
 
 def visualize(model):
     battery_img = "data/battery.jpg"
-    house_img = "data/house.jpg"
+    house_img = "data/house2.jpg"
 
     # -------------------------------------test data----------------------------
     # dictionary = json.load(open(f'{output_file}.json', 'r'))

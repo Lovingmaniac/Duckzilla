@@ -13,6 +13,7 @@ def run(model):
     # Shuffles the unconnected houses
     random.shuffle(model.unconnected_houses)
     random.shuffle(model.batteries)
+    # print(model.batteries)
 
     # iterate over all the batteries
     for battery in model.batteries:
@@ -33,12 +34,15 @@ def get_score(model):
     so that there is an indication of the length of the cables"""
     cables = 0
     number_cables = 0
+    costs = 0
     for battery in model.batteries:
+        costs += 5000
+        
         for house in battery.houses:
             distance = model.manhattan_distance(battery.location, house.location)
             cables += distance
-            number_cables += len(house.cables)
-    return cables
+            costs += distance * 9
+    return costs
 
 
 def baseline(model, runs):
@@ -48,22 +52,25 @@ def baseline(model, runs):
     min_costs = 100000
     counter = 0
     timestr = time.strftime("%Y%m%d-%H%M%S")
+    
     with open(f'output/histogram_{timestr}.txt', 'w') as f:
         for i in range(runs):
             base_model = model.copy()
             run(base_model)
-            costs = base_model.calculate_costs()
+            costs = get_score(base_model)
+            
             if costs < min_costs:
                 min_costs = costs
                 print(min_costs)
-                visualize(base_model)
+                visualize(base_model)        
+            
             
             if model.is_solution:
                 f.write(f'{costs}\n')
             else:
                 f.write('0\n')
+            
             if i in range(0, runs, 100):
-                print(base_model.calculate_costs())
-                print(counter)
+                print(costs)
+                print(f'c: {counter}')
                 counter += 1
-

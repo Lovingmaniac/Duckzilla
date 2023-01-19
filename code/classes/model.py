@@ -40,7 +40,6 @@ class Model:
 
             # iterate over all houses connected to battery
             for house in battery.houses:
-
                 # get total costs for house and add it to the total costs
                 total_costs += ((len(house.cables) - 1) * 9)
         self.total_costs = total_costs
@@ -116,10 +115,10 @@ class Model:
         """Returns shallow copy of all grid and costs score."""
 
         # make shallow copy of model
-        new_model = copy.copy(self)
+        new_model = copy.deepcopy(self)
 
         # only copy the attributes needed for algorithms
-        new_model.unconnected_houses = copy.copy(self.unconnected_houses)
-        new_model.total_costs = copy.copy(self.total_costs)
+        # new_model.unconnected_houses = copy.copy(self.unconnected_houses)
+        # new_model.total_costs = copy.copy(self.total_costs)
 
         return new_model
