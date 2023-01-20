@@ -11,8 +11,8 @@ class Model:
         self.grid = grid
         self.batteries: list[Battery] = grid.batteries
         self.houses: list[House] = grid.houses
-        self.nodes = grid.nodes
-        self.unconnected_houses = grid.houses
+        self.nodes: dict[Node] = grid.nodes
+        self.unconnected_houses = copy.deepcopy(grid.houses)
         self.total_costs = 0
         self.district = grid.district
 
@@ -119,6 +119,7 @@ class Model:
 
         new_model.unconnected_houses = copy.deepcopy(self.unconnected_houses)
         new_model.batteries = copy.deepcopy(self.batteries)
+        new_model.houses = copy.deepcopy(self.houses)
         new_model.total_costs = copy.deepcopy(self.total_costs)
 
         return new_model
