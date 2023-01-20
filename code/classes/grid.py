@@ -16,15 +16,15 @@ class Grid:
         self.batteries = []
         self.nodes = {}
 
-    def make_nodes(self) -> None:
+    def make_nodes(self, dimensions) -> None:
         """Create all nodes for grid."""
         uid = 0
 
         # iterate over each column
-        for x in range(51):
+        for x in range(dimensions):
 
             # iterate over each row
-            for y in range(51):
+            for y in range(dimensions):
 
                 # create a new node and update uid
                 node = Node(x, y)
@@ -64,7 +64,8 @@ class Grid:
                 self.batteries.append(battery)
 
                 # set node object type as battery
-                self.nodes[(x, y)].type = battery
+                self.nodes[(x, y)].add_type(battery)
+                self.nodes[(x, y)].add_typename('battery')
 
 
                 # make new id number
@@ -93,3 +94,4 @@ class Grid:
 
                 # set node object type to house
                 self.nodes[(x, y)].add_type(house)
+                self.nodes[(x, y)].add_typename('house')

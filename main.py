@@ -3,18 +3,20 @@ from code.classes.grid import Grid
 from code.visualization.visualization import visualize
 from code.algorithms import randomise as rand
 from code.visualization.output import output
+from code.algorithms.greedy_battery import FillBattery as fb
 # from code.algorithms import closest_houses as closest
 
 if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
-    grid.make_nodes()
-    grid.load_grid(1)
+    grid.make_nodes(5)
+    grid.load_grid(4)
 
     model = Model(grid)
     
     #----------------random assignment of houses to batteries---------------
-    rand.baseline(model, 1)
+    # rand.baseline(model, 1)
+    # print(model.nodes)
 
     # rand.run(model)
     # closest.run(model)
@@ -30,4 +32,9 @@ if __name__ == "__main__":
     # output(new_model)
     # visualize(model)
 
-    #---------------next algorithm--------------------
+    #---------------greedy_battery--------------------
+    # battery_model = model.copy()
+    # fillbattery = fb(model)
+    # fillbattery.spiral_sort((0,0))
+    # print(model.nodes[(0,0)].get_type())
+    # print(model.batteries)

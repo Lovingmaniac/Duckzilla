@@ -1,8 +1,11 @@
+from collections import namedtuple
+
 class Node:
     def __init__(self, x, y):
-        self.coordinates = (x, y)
+        self.coordinates = namedtuple("location", "x y")(x, y)
         self.connections = []
         self.type = None
+        self.typename = None
         self.is_cable = False
 
     def add_connection(self, node):
@@ -10,7 +13,7 @@ class Node:
 
     def add_type(self, type):
         self.type = type
-
+    
     def get_type(self):
         return self.type
 
@@ -20,6 +23,10 @@ class Node:
     def remove_cable(self):
         self.is_cable = False
 
-
+    def add_typename(self, typename):
+        self.typename = typename
+    
+    def get_typename(self):
+        return self.typename
     def __repr__(self):
-        return f"id: {self.id}, location: {self.coordinates}"
+        return f"location: {self.coordinates}"
