@@ -45,6 +45,10 @@ class Model:
         self.total_costs = total_costs
         return total_costs
 
+    def get_possibilities(self) -> list[House]:
+        """Returns the remaining houses to be connected."""
+        return self.connected_houses
+
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):
         distance = 0
@@ -109,10 +113,12 @@ class Model:
         """Returns shallow copy of all grid and costs score."""
 
         # make shallow copy of model
-        new_model = copy.deepcopy(self)
-
+#        new_model = copy.deepcopy(self)
+        new_model = copy.copy(self)
         # only copy the attributes needed for algorithms
-        # new_model.unconnected_houses = copy.copy(self.unconnected_houses)
-        # new_model.total_costs = copy.copy(self.total_costs)
+
+        new_model.unconnected_houses = copy.deepcopy(self.unconnected_houses)
+        new_model.batteries = copy.deepcopy(self.batteries)
+        new_model.total_costs = copy.deepcopy(self.total_costs)
 
         return new_model
