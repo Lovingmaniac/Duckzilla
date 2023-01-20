@@ -50,4 +50,4 @@ class House:
     def __repr__(self) -> str:
         """Returns the correct representation for house class."""
 
-        return f"loc: {self.location}, output: {self.output}"
+        return f"house: loc: {self.location}, output: {self.output}"

@@ -15,8 +15,8 @@ class Battery:
         self.houses: list[House] = []
         self.id = uid
 
-    def __str__(self):
-        return f"loc:{self.location}, cap:{self.current_capacity}"
+    def __repr__(self):
+        return f"battery: loc:{self.location}, cap:{self.current_capacity}"
 
     def add_house(self, house: House) -> None:
         """Adds a house to self, sets house to "connected"
