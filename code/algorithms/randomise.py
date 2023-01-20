@@ -20,7 +20,6 @@ def run(model):
 
         # take the last house in the list
         house = model.unconnected_houses.pop()
-        
 
         # checks wether the battery still has capacity and if there are houses left
         while battery.has_space(house) and model.unconnected_houses:
@@ -52,25 +51,23 @@ def baseline(model, runs):
     min_costs = 100000
     counter = 0
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    
+
     with open(f'output/histogram_{timestr}.txt', 'w') as f:
         for i in range(runs):
             base_model = model.copy()
             run(base_model)
-            costs = get_score(base_model)
-            
+            costs = base_model.calculate_costs()
+
             if costs < min_costs:
                 min_costs = costs
                 print(min_costs)
-                # visualize(base_model)        
-            
-            
+                # visualize(base_model)
             if model.is_solution:
                 f.write(f'{costs}\n')
             else:
                 f.write('0\n')
-            
-            if i in range(0, runs, 100):
-                print(costs)
-                print(f'c: {counter}')
-                counter += 1
+
+            # if i in range(0, runs):
+            #     print(costs)
+            #     print(f'c: {counter}')
+            #     counter += 1

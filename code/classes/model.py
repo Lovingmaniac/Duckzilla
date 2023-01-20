@@ -68,7 +68,7 @@ class Model:
         for house in self.houses:
             if not house.is_connected:
                 return False
-        
+
         # success
         return True
 
