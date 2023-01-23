@@ -4,6 +4,7 @@ from code.visualization.visualization import visualize
 from code.algorithms import randomise as rand
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery as fb
+import math
 # from code.algorithms import closest_houses as closest
 
 if __name__ == "__main__":
@@ -25,16 +26,17 @@ if __name__ == "__main__":
     # new_model = model.copy()
     # print(rand.baseline(new_grid))
     
-    # rand.baseline(model, 100000)
-    # print(f'score: {rand.get_score(new_model)}')
+    # rand.baseline(model, 10)
+    # print(f'score: {rand.get_score(new_mol)}')
     
-    # rand.run(new_model)
-    # output(new_model)
+    # rand.run(model)
+    # output(model)
     # visualize(model)
 
     #---------------greedy_battery--------------------
-    # battery_model = model.copy()
-    # fillbattery = fb(model)
-    # fillbattery.spiral_sort((0,0))
+    battery_model = model.copy()
+    fillbattery = fb(battery_model)
+    fillbattery.run((0,0))
+    # print(int(math.sqrt(len(model.nodes))))
     # print(model.nodes[(0,0)].get_type())
     # print(model.batteries)
