@@ -4,13 +4,14 @@ from code.visualization.visualization import visualize
 from code.algorithms import randomise as rand
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery as fb
+from code.algorithms.iteration import Iteration
 # from code.algorithms import closest_houses as closest
 
 if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
-    grid.make_nodes(5)
-    grid.load_grid(4)
+    grid.make_nodes(50)
+    grid.load_grid(1)
 
     model = Model(grid)
     
@@ -38,3 +39,17 @@ if __name__ == "__main__":
     # fillbattery.spiral_sort((0,0))
     # print(model.nodes[(0,0)].get_type())
     # print(model.batteries)
+    #--------------------------------------------------
+
+    #---------------iteration algorithm----------------
+    # now randomly tries to improve randomly generated solutions
+    rand.run(model)
+
+
+    # but could use another searching algorithm for future?
+
+    iteration = Iteration(model)
+    iteration.run(100)
+    print(model.total_costs)
+
+    #--------------------------------------------------

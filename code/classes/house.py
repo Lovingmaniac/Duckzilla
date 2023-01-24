@@ -11,6 +11,7 @@ class House:
         self.location = namedtuple("location", "x y")(x, y)    
         self.output = output
         self.cables = []
+        self.is_connected = False
 
     def add_cable(self, location: tuple) -> None:
         """Adds a cable to the house object."""
@@ -27,7 +28,7 @@ class House:
         # remove cable
         self.cables.remove(location)
 
-    def get_output(self) -> float:
+    def get_output(sel) -> float:
         """Returns the output of a house object."""
 
         return self.output
