@@ -12,7 +12,7 @@ class Model:
         self.batteries: list[Battery] = grid.batteries
         self.houses: list[House] = grid.houses
         self.nodes: dict[Node] = grid.nodes
-        self.unconnected_houses = copy.deepcopy(grid.houses)
+        self.unconnected_houses = copy.copy(grid.houses)
         self.total_costs = 0
         self.district = grid.district
 
@@ -63,14 +63,18 @@ class Model:
     # moet nog aangepast worden
     def is_solution(self) -> bool:
         """Returns True if all houses are connected to a battery, False otherwise."""
-
+        if not self.unconnected_houses:
+            return True
+        else:
+            return False
         # iterate over all nodes in grid
-        for house in self.houses:
-            if not house.is_connected:
-                return False
+        # for house in self.houses:
+        #     print(house)
+        #     if not house.is_connected:
+        #         return False
 
         # success
-        return True
+        # return True
 
     def make_cables(self):
         """generates cables between house and battery, first moves horizontally

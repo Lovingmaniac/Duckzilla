@@ -23,20 +23,22 @@ class FillBattery():
         # output(self.model)
         # visualize(self.model)
         # print(costs)
+        # print(self.model.is_solution())
 
         with open(f'output/histogram_fillbattery_{timestr}.txt', 'w') as f:
             self.spiral_sort(startpoint)
+            self.model.make_cables()
             costs = self.model.calculate_costs()
             print(costs)
             min_costs = 100000
             if costs < min_costs:
                 min_costs = costs
                 print(min_costs)
-                # visualize(base_model)
+                visualize(self.model)
             if self.model.is_solution():
                 f.write(f'{costs}\n')
             else:
-                f.write('0\n')
+                f.write('NaN\n')
 
 
     def spiral_sort(self, startpoint):
@@ -54,6 +56,9 @@ class FillBattery():
                 for battery in list(batteries.values()):
                     if battery.has_space(house):
                         battery.add_house(house)
+                        house.set_connected()
+                        # print(house.is_connected)
+                        
                         break
 
             grid[r][c] = None
@@ -61,6 +66,7 @@ class FillBattery():
                 dr, dc = dc, -dr
             r += dr
             c += dc
+        # print(self.unconnected_houses)
                 
     def sort_batteries(self, location):
         distances = {}

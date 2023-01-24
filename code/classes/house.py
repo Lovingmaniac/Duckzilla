@@ -28,11 +28,9 @@ class House:
         # remove cable
         self.cables.remove(location)
 
-    def get_output(sel) -> float:
+    def get_output(self) -> float:
         """Returns the output of a house object."""
-
         return self.output
-
     def get_location(self) -> str:
         """Returns the x-y coordinations of given house."""
 

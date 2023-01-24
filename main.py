@@ -48,13 +48,13 @@ if __name__ == "__main__":
 
     #---------------iteration algorithm----------------
     # now randomly tries to improve randomly generated solutions
-    rand.run(model)
+    # rand.run(model)
 
 
-    # but could use another searching algorithm for future?
+    # # but could use another searching algorithm for future?
 
-    iteration = Iteration(model)
-    iteration.run(100)
-    print(model.total_costs)
+    # iteration = Iteration(model)
+    # iteration.run(100)
+    # print(model.total_costs)
 
     #--------------------------------------------------
