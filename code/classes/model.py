@@ -45,9 +45,9 @@ class Model:
         self.total_costs = total_costs
         return total_costs
 
-    def get_possibilities(self) -> list[House]:
+    def get_possibilities(self) -> list:
         """Returns the remaining houses to be connected."""
-        return self.connected_houses
+        return self.unconnected_houses
 
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):

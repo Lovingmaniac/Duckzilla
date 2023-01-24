@@ -62,7 +62,7 @@ def baseline(model, runs):
                 min_costs = costs
                 print(min_costs)
                 # visualize(base_model)
-            if model.is_solution:
+            if model.is_solution():
                 f.write(f'{costs}\n')
             else:
                 f.write('0\n')
