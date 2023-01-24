@@ -35,7 +35,7 @@ class House:
     def get_location(self) -> str:
         """Returns the x-y coordinations of given house."""
 
-        return f"{self.location[0]},{self.location[1]}"
+        return self.location
 
     def set_connected(self) -> None:
         """Sets house to connected when it is connected to a battery."""

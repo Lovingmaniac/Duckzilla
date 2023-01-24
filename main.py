@@ -10,8 +10,8 @@ import math
 if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
-    grid.make_nodes(5)
-    grid.load_grid(4)
+    grid.make_nodes(51)
+    grid.load_grid(1)
 
     model = Model(grid)
     

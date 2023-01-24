@@ -17,25 +17,26 @@ class FillBattery():
 
     def run(self, startpoint):
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        self.spiral_sort(startpoint)
-        
-        costs = self.model.calculate_costs()
-        output(self.model)
-        print(costs)
+        # self.spiral_sort(startpoint)
+        # self.model.make_cables()
+        # costs = self.model.calculate_costs()
+        # output(self.model)
+        # visualize(self.model)
+        # print(costs)
 
-        # with open(f'output/histogram_fillbattery_{timestr}.txt', 'w') as f:
-        #     self.spiral_sort(startpoint)
-        #     costs = self.model.calculate_costs()
-        #     print(costs)
-        
-        #     if costs < min_costs:
-        #         min_costs = costs
-        #         print(min_costs)
-        #         # visualize(base_model)
-        #     if self.model.is_solution():
-        #         f.write(f'{costs}\n')
-        #     else:
-        #         f.write('0\n')
+        with open(f'output/histogram_fillbattery_{timestr}.txt', 'w') as f:
+            self.spiral_sort(startpoint)
+            costs = self.model.calculate_costs()
+            print(costs)
+            min_costs = 100000
+            if costs < min_costs:
+                min_costs = costs
+                print(min_costs)
+                # visualize(base_model)
+            if self.model.is_solution():
+                f.write(f'{costs}\n')
+            else:
+                f.write('0\n')
 
 
     def spiral_sort(self, startpoint):
@@ -48,11 +49,13 @@ class FillBattery():
         for _ in range(rows * cols):
             if self.nodes[(r,c)].get_typename() == 'house':
                 batteries = self.sort_batteries((r,c))
+                index = self.get_index_house((r,c))
+                house = self.unconnected_houses.pop(index)
                 for battery in list(batteries.values()):
-                    if battery.has_space(self.nodes[(r,c)].get_type()):
-                        self.add_house(self.nodes[(r,c)].get_type(), battery)
-                        print(f"battery: {battery}, {battery.houses} \n ")
-                #         break
+                    if battery.has_space(house):
+                        battery.add_house(house)
+                        break
+
             grid[r][c] = None
             if (r + dr < 0 or r + dr >= rows or c + dc < 0 or c + dc >= cols or grid[r + dr][c + dc] is None):
                 dr, dc = dc, -dr
@@ -70,20 +73,20 @@ class FillBattery():
         return sorted_distances
     
     def add_house(self, house, battery):
-        battery.add_house(house)
+        pass
         # self.model.make_cables()
         # index = 0
-        # print(f'house: {house}, id: {id(house)}')
+        # # print(f'house: {house}, id: {id(house)}')
         # for huis in self.unconnected_houses:
-        #     print(f'huis: {huis}, index: {index},  id: {id(house)}')
-        #     print(huis == house)
+        #     # print(f'huis: {huis}, index: {index},  id: {id(house)}')
+        #     # print(huis == house)
             
-        #     # if huis == house:
-        #     #     new_house = self.unconnected_houses.pop(index)
-        #     #     print(new_house)
-            #     battery.add_house(new_house)
-            #     self.model.make_cables()
-            # index += 1
+        #     if huis == house:
+        #         new_house = self.unconnected_houses.pop(index)
+        #         print(new_house)
+        #         battery.add_house(new_house)
+        #         self.model.make_cables()
+        #     index += 1
 
     def make_grid(self, dimensions):
         grid = []
@@ -93,3 +96,12 @@ class FillBattery():
                 grid[row].append(col)
         
         return grid
+
+    def get_index_house(self, location):
+        index = 0
+        for house in self.unconnected_houses:
+            if house.location.x == location[0] and house.location.y == location[1]:
+                return index
+            index += 1
+
+    
