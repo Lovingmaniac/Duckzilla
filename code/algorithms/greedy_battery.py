@@ -1,5 +1,4 @@
 import copy
-import random
 import time
 import random
 import math
@@ -29,12 +28,13 @@ class FillBattery():
             self.spiral_sort(startpoint)
             self.model.make_cables()
             costs = self.model.calculate_costs()
-            print(costs)
+            # print(costs)
+            output(self.model)
             min_costs = 100000
             if costs < min_costs:
                 min_costs = costs
-                print(min_costs)
-                visualize(self.model)
+                # print(min_costs)
+                # visualize(self.model)
             if self.model.is_solution():
                 f.write(f'{costs}\n')
             else:
@@ -109,5 +109,3 @@ class FillBattery():
             if house.location.x == location[0] and house.location.y == location[1]:
                 return index
             index += 1
-
-    

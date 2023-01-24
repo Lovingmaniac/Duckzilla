@@ -14,8 +14,8 @@ import math
 if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
-    grid.make_nodes(51)
-    grid.load_grid(1)
+    grid.make_nodes(5)
+    grid.load_grid(4)
 
     model = Model(grid)
     
@@ -23,10 +23,11 @@ if __name__ == "__main__":
     # rand.baseline(model, 1)
     # print(model.nodes)
 
-    # rand.run(model)
-    # closest.run(model)
-    # print(model.houses)
-    # visualize(model)
+    # new_model= model.copy()
+    # rand.run(new_model)
+    # # closest.run(model)
+    # # print(model.houses)
+    # visualize(new_model)
     # new_model = model.copy()
     # print(rand.baseline(new_grid))
     

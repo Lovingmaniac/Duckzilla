@@ -12,7 +12,7 @@ class Model:
         self.batteries: list[Battery] = grid.batteries
         self.houses: list[House] = grid.houses
         self.nodes: dict[Node] = grid.nodes
-        self.unconnected_houses = copy.deepcopy(grid.houses)
+        self.unconnected_houses = copy.copy(grid.houses)
         self.total_costs = 0
         self.district = grid.district
 
@@ -33,25 +33,28 @@ class Model:
 
     def calculate_costs(self) -> None:
         """Calculates the total costs for district."""
-        # only calculate if all houses are connected
-        if not self.is_solution():
-            return None
-
         # iterate over all batteries
         total_costs = 0
         for battery in self.batteries:
             total_costs += 5000
-
+            # make a set of cables per battery
+            used_cables = set()
             # iterate over all houses connected to battery
             for house in battery.houses:
-                # get total costs for house and add it to the total costs
-                total_costs += ((len(house.cables) - 1) * 9)
+                #for each cable connected to the battery check if it is already there
+                for cable in house.cables:
+                    # for each new element add to the set
+                    if not cable in used_cables:
+                        used_cables.add(cable)
+            # calculate the costs of each set and add to total
+            total_costs += ((len(used_cables) - 1) * 9)
+            print(total_costs)
         self.total_costs = total_costs
         return total_costs
 
-    def get_possibilities(self) -> list[House]:
+    def get_possibilities(self) -> list:
         """Returns the remaining houses to be connected."""
-        return self.connected_houses
+        return self.unconnected_houses
 
     # Calculating Manhattan Distance from Scratch
     def manhattan_distance(self, point1, point2):
@@ -67,18 +70,17 @@ class Model:
     # moet nog aangepast worden
     def is_solution(self) -> bool:
         """Returns True if all houses are connected to a battery, False otherwise."""
-
-        # iterate over all nodes in grid
-        # for house in self.houses:
-        #     if not house.is_connected:
-        #         return False
-
         if not self.unconnected_houses:
             return True
         else:
             return False
+        # iterate over all nodes in grid
+        # for house in self.houses:
+        #     print(house)
+        #     if not house.is_connected:
+        #         return False
 
-        # # success
+        # success
         # return True
 
     def make_cables(self):
