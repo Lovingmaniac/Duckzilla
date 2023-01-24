@@ -71,6 +71,8 @@ class Grid:
                 # make new id number
                 uid += 1
 
+
+
         # load houses data
         with open(
             f"data/district_{district}/district-{district}_houses.csv"
@@ -95,3 +97,4 @@ class Grid:
                 # set node object type to house
                 self.nodes[(x, y)].add_type(house)
                 self.nodes[(x, y)].add_typename('house')
+
