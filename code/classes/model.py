@@ -22,7 +22,6 @@ class Model:
 
         # iterate over each node in grid
         for node in self.nodes:
-
             # iterate over all directions and define x-y coordinates
             for direction in directions:
                 connection = (node[0] + direction[0], node[1] + direction[1])

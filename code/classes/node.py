@@ -11,6 +11,9 @@ class Node:
     def add_connection(self, node):
         self.connections.append(node)
 
+    def get_connections(self):
+        return self.connections
+
     def add_type(self, type):
         self.type = type
     

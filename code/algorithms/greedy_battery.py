@@ -109,3 +109,5 @@ class FillBattery():
             if house.location.x == location[0] and house.location.y == location[1]:
                 return index
             index += 1
+    
+    
