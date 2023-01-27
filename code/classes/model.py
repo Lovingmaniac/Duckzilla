@@ -1,5 +1,6 @@
 import copy
 
+
 from .battery import Battery
 from .grid import Grid
 from .house import House
@@ -37,17 +38,27 @@ class Model:
         if not self.is_solution():
             return None
 
-        # iterate over all batteries
-        total_costs = 0
-        for battery in self.batteries:
-            total_costs += 5000
+        # starting costs for 5 batteries
+        self.total_costs = 25000
 
-            # iterate over all houses connected to battery
-            for house in battery.houses:
-                # get total costs for house and add it to the total costs
-                total_costs += ((len(house.cables) - 1) * 9)
-        self.total_costs = total_costs
-        return total_costs
+        # add cable costs
+        for node in self.nodes:
+            if self.nodes[node].is_cable:
+                self.total_costs += 9
+
+        return self.total_costs
+        
+        # # iterate over all batteries
+        # total_costs = 0
+        # for battery in self.batteries:
+        #     total_costs += 5000
+
+        #     # iterate over all houses connected to battery
+        #     for house in battery.houses:
+        #         # get total costs for house and add it to the total costs
+        #         total_costs += ((len(house.cables) - 1) * 9)
+        # self.total_costs = total_costs
+        # return total_costs
 
     def get_possibilities(self) -> list[House]:
         """Returns the remaining houses to be connected."""
@@ -64,71 +75,111 @@ class Model:
 
         return distance
 
-    # moet nog aangepast worden
     def is_solution(self) -> bool:
         """Returns True if all houses are connected to a battery, False otherwise."""
 
-        # iterate over all nodes in grid
-        # for house in self.houses:
-        #     if not house.is_connected:
-        #         return False
-
+        # solution if all houses are connected
         if not self.unconnected_houses:
-            return True
+            pass
         else:
             return False
 
-        # # success
-        # return True
+        # solution if connections to batteries are within capacity bounds
+        for battery in self.batteries:
+            if battery.current_capacity >= 0:
+                return True
+        return False
 
     def make_cables(self):
         """generates cables between house and battery, first moves horizontally
         and then vertically"""
 
-        # iterates over the batteries
+        # iterate over all batteries
         for battery in self.batteries:
 
-            # iterates over the houses in the batteries
+            # iterate over all houses connected to battery
             for house in battery.houses:
 
-                # variables for location house and batteries
-                x_house, y_house = house.location
-                x_battery, y_battery = battery.location
+                # add cable list to each house
+                self.add_one_cable(battery, house)
 
-                # add first cable point to house
-                house.add_cable((x_house, y_house))
-                self.nodes[(x_house, y_house)].set_cable()
+    def remove_one_cable(self, battery: Battery, house: House):
+        """Removes a cable connection"""
+        # get x-y coordinations for house and battery
+        x_house, y_house = house.location
+        x_battery, y_battery = battery.location
 
-                # set step for x and y direction
-                x_step = 1 if x_house < x_battery else -1
-                y_step = 1 if y_house < y_battery else -1
+        # remove first cable point to house
+        house.remove_cable((x_house, y_house))
 
-                # add x- step and x-cable point to house
-                while not x_house == x_battery:
-                    x_house += x_step
-                    house.add_cable((x_house, y_house))
-                    self.nodes[(x_house, y_house)].set_cable()
+        # set step for x and y direction
+        x_step = 1 if x_house < x_battery else -1
+        y_step = 1 if y_house < y_battery else -1
 
-                # add y-step and y-cable point to house
-                while not y_house == y_battery:
-                    y_house += y_step
-                    house.add_cable((x_house, y_house))
-                    self.nodes[(x_house, y_house)].set_cable()
+        print(f"length cable = {len(house.cables)}")
+        # remove x- step and x-cable point from house
 
-                # set house to "connected"
-                house.set_connected()
+        # move all x-coordinates
+        while not x_house == x_battery:
+            x_house += x_step
+            house.remove_cable((x_house, y_house))
+
+            # remove node cable object
+            self.nodes[(x_house, y_house)].remove_cable()
+
+        # remove y-step and y-cable point remove house
+        while not y_house == y_battery:
+            y_house += y_step
+            house.remove_cable((x_house, y_house))
+
+            # remove node cable object
+            self.nodes[(x_house, y_house)].remove_cable()
+
+        house.remove_cable((x_house, y_house))
+
+    def add_one_cable(self, battery: Battery, house: House):
+        """Adds a cable connection."""
+        # get x-y coordinations for house and battery
+        x_house, y_house = house.location
+        x_battery, y_battery = battery.location
+
+        # add first cable point to house
+        house.add_cable((x_house, y_house))
+        self.nodes[(x_house, y_house)].set_cable()
+
+        # set step for x and y direction
+        x_step = 1 if x_house < x_battery else -1
+        y_step = 1 if y_house < y_battery else -1
+
+        # add x- step and x-cable point to house
+        while not x_house == x_battery:
+            x_house += x_step
+            house.add_cable((x_house, y_house))
+            # set node to cable object
+            self.nodes[(x_house, y_house)].set_cable()
+
+        # add y-step and y-cable point to house
+        while not y_house == y_battery:
+            y_house += y_step
+            house.add_cable((x_house, y_house))
+            # set node to cable object
+            self.nodes[(x_house, y_house)].set_cable()
+
+        # set house to "connected"
+        house.set_connected()
+
 
     def copy(self) -> 'Model':
         """Returns shallow copy of all grid and costs score."""
 
         # make shallow copy of model
-#        new_model = copy.deepcopy(self)
         new_model = copy.copy(self)
+
         # only copy the attributes needed for algorithms
 
         new_model.unconnected_houses = copy.deepcopy(self.unconnected_houses)
         new_model.batteries = copy.deepcopy(self.batteries)
         new_model.houses = copy.deepcopy(self.houses)
         new_model.total_costs = copy.deepcopy(self.total_costs)
-
+        new_model.nodes = copy.deepcopy(self.nodes)
         return new_model
