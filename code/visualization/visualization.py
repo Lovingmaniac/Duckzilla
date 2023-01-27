@@ -42,6 +42,7 @@ def visualize(model):
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
     imscatter(x_batteries, y_batteries, battery_img, zoom=0.08, ax=ax)
     imscatter(x_houses, y_houses, house_img, zoom=0.012, ax=ax)
+
     for battery in model.batteries:
         colors = ["red", "blue", "green", "yellow", "orange"]
         for house in battery.houses:

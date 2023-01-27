@@ -15,10 +15,10 @@ if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
     grid.make_nodes(51)
-    grid.load_grid(1)
+    grid.load_grid(3)
 
     model = Model(grid)
-    
+
     #----------------random assignment of houses to batteries---------------
     # rand.baseline(model, 1)
     # print(model.nodes)
@@ -29,18 +29,18 @@ if __name__ == "__main__":
     # visualize(model)
     # new_model = model.copy()
     # print(rand.baseline(new_grid))
-    
+
     # rand.baseline(model, 10)
     # print(f'score: {rand.get_score(new_mol)}')
-    
+
     # rand.run(model)
     # output(model)
     # visualize(model)
 
-    #---------------greedy_battery--------------------
+    #----# -----------greedy_battery--------------------
     battery_model = model.copy()
     fillbattery = fb(battery_model)
-    fillbattery.run((0,0))
+    fillbattery.run((0, 0))
     # print(int(math.sqrt(len(model.nodes))))
     # print(model.nodes[(0,0)].get_type())
     # print(model.batteries)
@@ -50,11 +50,12 @@ if __name__ == "__main__":
     # now randomly tries to improve randomly generated solutions
     # rand.run(model)
 
+    # print(model.calculate_costs())
 
-    # # but could use another searching algorithm for future?
+    iteration = Iteration(battery_model)
+    iteration.run(10000)
+    print(model.total_costs)
 
-    # iteration = Iteration(model)
-    # iteration.run(100)
-    # print(model.total_costs)
+
 
     #--------------------------------------------------
