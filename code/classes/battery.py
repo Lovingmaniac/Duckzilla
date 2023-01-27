@@ -33,7 +33,7 @@ class Battery:
     def remove_house(self, house: House) -> None:
         """Removes a house from battery and updates current capacity."""
         self.houses.remove(house)
-        self.current_capacity += house.getoutput()
+        self.current_capacity += house.get_output()
 
     def get_capacity(self) -> float:
         """Returns the remaining capacity of the battery."""
