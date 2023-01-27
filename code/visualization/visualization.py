@@ -9,8 +9,8 @@ import time
 timestr = time.strftime("%Y%m%d-%H%M%S")
 
 def visualize(model):
-    battery_img = "data/battery.jpg"
-    house_img = "data/house2.jpg"
+    battery_img = "data/battery.png"
+    house_img = "data/house2.png"
 
     # -------------------------------------test data----------------------------
     # dictionary = json.load(open(f'{output_file}.json', 'r'))
@@ -40,8 +40,8 @@ def visualize(model):
 
     # -------------------------------------plot---------------------------------
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-    imscatter(x_batteries, y_batteries, battery_img, zoom=0.08, ax=ax)
-    imscatter(x_houses, y_houses, house_img, zoom=0.012, ax=ax)
+    imscatter(x_batteries, y_batteries, battery_img, zoom=0.1, ax=ax)
+    imscatter(x_houses, y_houses, house_img, zoom=0.05, ax=ax)
 
     for battery in model.batteries:
         colors = ["red", "blue", "green", "yellow", "orange"]

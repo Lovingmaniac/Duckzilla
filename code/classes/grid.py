@@ -98,3 +98,5 @@ class Grid:
                 self.nodes[(x, y)].add_type(house)
                 self.nodes[(x, y)].add_typename('house')
 
+    # def add_connections(self):
+    #     directions = [()]

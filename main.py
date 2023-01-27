@@ -4,6 +4,8 @@ from code.visualization.visualization import visualize
 from code.algorithms import randomise as rand
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery as fb
+from code.classes.node import Node
+from code.algorithms.breadthfirst import BreadthFirst
 
 from code.algorithms.iteration import Iteration
 
@@ -14,6 +16,7 @@ import math
 if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
+
     grid.make_nodes(51)
     grid.load_grid(3)
 
@@ -23,10 +26,11 @@ if __name__ == "__main__":
     # rand.baseline(model, 1)
     # print(model.nodes)
 
-    # rand.run(model)
-    # closest.run(model)
-    # print(model.houses)
-    # visualize(model)
+    # new_model= model.copy()
+    # rand.run(new_model)
+    # # closest.run(model)
+    # # print(model.houses)
+    # visualize(new_model)
     # new_model = model.copy()
     # print(rand.baseline(new_grid))
 
@@ -42,6 +46,7 @@ if __name__ == "__main__":
     fillbattery = fb(battery_model)
     fillbattery.run((0, 0))
     # print(int(math.sqrt(len(model.nodes))))
+    # print(battery_model.nodes[(1,1)].get_connections())
     # print(model.nodes[(0,0)].get_type())
     # print(model.batteries)
     #--------------------------------------------------
@@ -56,6 +61,9 @@ if __name__ == "__main__":
     iteration.run(10000)
     print(model.total_costs)
 
-
-
     #--------------------------------------------------
+
+    # newest_model = model.copy()
+    # bf = BreadthFirst(newest_model)
+    # bf.run()
+    
