@@ -1,5 +1,6 @@
-from collections import namedtuple
+from typing import Union
 
+from collections import namedtuple
 
 class House:
     def __init__(self, x: int, y: int, output: float) -> None:
@@ -8,17 +9,18 @@ class House:
         self.output -- the amount of energy outputted by house
         self.cables -- a list of cables connected to house"""
 
-        self.location = namedtuple("location", "x y")(x, y)    
+        self.location = namedtuple("location", "x y")(x, y)
         self.output = output
         self.cables = []
         self.is_connected = False
+        self.battery = None
 
     def add_cable(self, location: tuple) -> None:
         """Adds a cable to the house object."""
 
         self.cables.append(location)
 
-    def remove_cable(self, location: tuple) -> None:
+    def remove_cable(self, location: tuple) -> Union[None, int]:
         """Removes cable from house object if it is there."""
 
         # only remove cable if possible
@@ -30,10 +32,11 @@ class House:
 
     def get_output(self) -> float:
         """Returns the output of a house object."""
+
         return self.output
+
     def get_location(self) -> str:
         """Returns the x-y coordinations of given house."""
-
         return self.location
 
     def set_connected(self) -> None:
