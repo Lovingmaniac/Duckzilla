@@ -33,7 +33,7 @@ class FillBattery():
             min_costs = 100000
             if costs < min_costs:
                 min_costs = costs
-                print(min_costs)
+                # print(min_costs)
                 visualize(self.model)
             if self.model.is_solution():
                 f.write(f'{costs}\n')
@@ -46,19 +46,17 @@ class FillBattery():
         rows, cols = dimensions, dimensions
         r,c = startpoint[0], startpoint[1]
         dr, dc = 0, 1
-        grid = self.make_grid(dimensions)                        
-        
+        grid = self.make_grid(dimensions)
+
         for _ in range(rows * cols):
-            if self.nodes[(r,c)].get_typename() == 'house':
-                batteries = self.sort_batteries((r,c))
-                index = self.get_index_house((r,c))
+            if self.nodes[(r, c)].get_typename() == 'house':
+                batteries = self.sort_batteries((r, c))
+                index = self.get_index_house((r, c))
                 house = self.unconnected_houses.pop(index)
                 for battery in list(batteries.values()):
                     if battery.has_space(house):
                         battery.add_house(house)
                         house.set_connected()
-                        # print(house.is_connected)
-                        
                         break
 
             grid[r][c] = None
@@ -66,8 +64,30 @@ class FillBattery():
                 dr, dc = dc, -dr
             r += dr
             c += dc
-        # print(self.unconnected_houses)
-                
+
+            # if r == 25 and c == 25:
+            #     beginning_point = self.get_beginning_point()
+            #     r, c = beginning_point[0], beginning_point[1]
+
+            # print(self.unconnected_houses)
+
+    def get_border_points(self) -> list[tuple]:
+        """Makes a list of tuples for all border points in grid."""
+        border_points = []
+        for i in range(51):
+            for j in range(51):
+                if i == j:
+                    border_points.append((i, j))
+                else:
+                    border_points.append((i, j))
+                    border_points.append((j, i))
+        return border_points
+
+    def get_beginning_point(self) -> tuple:
+        # take random border point and start from there
+        beginning_point = random.choice(self.get_border_points())
+        return beginning_point
+
     def sort_batteries(self, location):
         distances = {}
         for battery in self.model.batteries:
