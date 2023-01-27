@@ -16,8 +16,8 @@ import math
 if __name__ == "__main__":
     # create new grid and model from data
     grid = Grid()
-    grid.make_nodes(51)
-    grid.load_grid(2)
+    grid.make_nodes(5)
+    grid.load_grid(5)
 
     model = Model(grid)
     model.add_connections()
@@ -43,9 +43,9 @@ if __name__ == "__main__":
     # visualize(model)
 
     #---------------greedy_battery--------------------
-    # battery_model = model.copy()
-    # fillbattery = fb(battery_model)
-    # fillbattery.run((0,0))
+    battery_model = model.copy()
+    fillbattery = fb(battery_model)
+    fillbattery.run((0,0))
     # print(battery_model.nodes[(1,1)].get_connections())
     # print(model.nodes[(0,0)].get_type())
     # print(model.batteries)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     #--------------------------------------------------
 
-    newest_model = model.copy()
-    bf = BreadthFirst(newest_model)
-    bf.run()
+    # newest_model = model.copy()
+    # bf = BreadthFirst(newest_model)
+    # bf.run()
     

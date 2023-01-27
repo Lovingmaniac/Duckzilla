@@ -1,4 +1,5 @@
 import json
+import time
 
 from code.classes.battery import Battery
 from code.classes.grid import Grid
@@ -8,6 +9,7 @@ from code.classes.house import House
 def output(model):
     """This function ...."""
     # get district info
+    timestr = time.strftime("%Y%m%d-%H%M%S")
     district_info = {"district": model.district, "costs-shared": model.calculate_costs()}
 
     # initialize list of dictionaries
@@ -39,5 +41,5 @@ def output(model):
         output.append(battery_info)
 
     # write to file with correct indentation
-    with open("output/output.json", "w") as write_file:
+    with open(f"output/output_{timestr}.json", "w") as write_file:
         json.dump(output, write_file, indent=2)

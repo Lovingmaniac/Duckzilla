@@ -25,7 +25,8 @@ def run(model):
         while battery.has_space(house) and model.unconnected_houses:
             battery.add_house(house)
             house = model.unconnected_houses.pop()
-    model.make_cables()
+            
+    # model.make_cables()
 
 
 def get_score(model):
@@ -71,3 +72,4 @@ def baseline(model, runs):
             #     print(costs)
             #     print(f'c: {counter}')
             #     counter += 1
+

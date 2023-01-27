@@ -16,29 +16,29 @@ class FillBattery():
 
     def run(self, startpoint):
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        # self.spiral_sort(startpoint)
-        # self.model.make_cables()
-        # costs = self.model.calculate_costs()
+        self.spiral_sort(startpoint)
+        self.model.make_cables()
+        costs = self.model.calculate_costs()
         # output(self.model)
         # visualize(self.model)
         # print(costs)
         # print(self.model.is_solution())
 
-        with open(f'output/histogram_fillbattery_{timestr}.txt', 'w') as f:
-            self.spiral_sort(startpoint)
-            self.model.make_cables()
-            costs = self.model.calculate_costs()
-            # print(costs)
-            output(self.model)
-            min_costs = 100000
-            if costs < min_costs:
-                min_costs = costs
-                # print(min_costs)
-                # visualize(self.model)
-            if self.model.is_solution():
-                f.write(f'{costs}\n')
-            else:
-                f.write('NaN\n')
+        # with open(f'output/histogram_fillbattery_{timestr}.txt', 'w') as f:
+        #     self.spiral_sort(startpoint)
+        #     self.model.make_cables()
+        #     costs = self.model.calculate_costs()
+        #     # print(costs)
+        #     output(self.model)
+        #     min_costs = 100000
+        #     if costs < min_costs:
+        #         min_costs = costs
+        #         # print(min_costs)
+        #         # visualize(self.model)
+        #     if self.model.is_solution():
+        #         f.write(f'{costs}\n')
+        #     else:
+        #         f.write('NaN\n')
 
 
     def spiral_sort(self, startpoint):
@@ -46,10 +46,11 @@ class FillBattery():
         rows, cols = dimensions, dimensions
         r,c = startpoint[0], startpoint[1]
         dr, dc = 0, 1
-        grid = self.make_grid(dimensions)                        
+        grid = self.make_grid(dimensions)
+        archive = set()                        
         
         for _ in range(rows * cols):
-            if self.nodes[(r,c)].get_typename() == 'house':
+            if self.nodes[(r,c)].get_typename() == 'house' and self.nodes[(r,c)] not in archive:
                 batteries = self.sort_batteries((r,c))
                 index = self.get_index_house((r,c))
                 house = self.unconnected_houses.pop(index)
@@ -57,12 +58,10 @@ class FillBattery():
                     if battery.has_space(house):
                         battery.add_house(house)
                         house.set_connected()
-                        # print(house.is_connected)
-                        
                         break
-
+            archive.add(self.nodes[(r,c)])
             grid[r][c] = None
-            if (r + dr < 0 or r + dr >= rows or c + dc < 0 or c + dc >= cols or grid[r + dr][c + dc] is None):
+            if (r + dr < 0 or r + dr > rows - 1 or c + dc < 0 or c + dc > cols - 1 or grid[r + dr][c + dc] is None):
                 dr, dc = dc, -dr
             r += dr
             c += dc
