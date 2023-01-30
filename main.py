@@ -1,3 +1,4 @@
+from code.classes.algorithms.hillclimber import Hillclimber
 from code.classes.model import Model
 from code.classes.grid import Grid
 from code.visualization.visualization import visualize
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     # print(model.batteries)
     #--------------------------------------------------
 
-    #---------------iteration algorithm----------------
+    #---------------hillclimber random algorithm----------------
     # now randomly tries to improve randomly generated solutions
     # rand.run(model)
 
@@ -63,6 +64,12 @@ if __name__ == "__main__":
     # print(battery_model)
     # print(model.total_costs)
 
+    #--------------------------------------------------
+    #---------------hillclimber non-random-------------
+    
+    hillclimber= Hillclimber(battery_model)
+    hillclimber.run(10000)
+    print(model.total_costs)
     #--------------------------------------------------
 
     newest_model = model.copy()
