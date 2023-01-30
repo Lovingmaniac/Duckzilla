@@ -116,28 +116,25 @@ class Model:
 
         # remove first cable point to house
         house.remove_cable((x_house, y_house))
+#        self.nodes[(x_house, y_house)].remove_cable()
 
         # set step for x and y direction
         x_step = 1 if x_house < x_battery else -1
         y_step = 1 if y_house < y_battery else -1
 
-        print(f"length cable = {len(house.cables)}")
+#        print(f"length cable = {len(house.cables)}")
         # remove x- step and x-cable point from house
 
         # move all x-coordinates
         while not x_house == x_battery:
             x_house += x_step
             house.remove_cable((x_house, y_house))
-
-            # remove node cable object
             self.nodes[(x_house, y_house)].remove_cable()
 
-        # remove y-step and y-cable point remove house
+        # move all y-coordinates
         while not y_house == y_battery:
             y_house += y_step
             house.remove_cable((x_house, y_house))
-
-            # remove node cable object
             self.nodes[(x_house, y_house)].remove_cable()
 
         house.remove_cable((x_house, y_house))
