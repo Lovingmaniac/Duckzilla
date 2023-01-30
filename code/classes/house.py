@@ -2,6 +2,7 @@ from typing import Union
 
 from collections import namedtuple
 
+
 class House:
     def __init__(self, x: int, y: int, output: float) -> None:
         """Constructor of class House

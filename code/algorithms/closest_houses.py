@@ -5,7 +5,7 @@ from code.classes.house import House
 
 
 def get_ordered_list(houses:list[House], x: int, y: int) -> list[tuple]:
-    """ 
+    """
     Takes a list of houses and x and y coordinates of a single point
     and returns a list of tuples based on the distance to
     the single point in descending order
