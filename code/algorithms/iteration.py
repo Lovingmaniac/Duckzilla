@@ -33,6 +33,7 @@ class Iteration():
 
         self.model = model.copy()
         self.original_costs = model.calculate_costs()
+        self.best_costs = 100000
 
     def mutate_battery_connection(self, new_model: Model):
         """Switches two random existing connections of model. 
@@ -64,7 +65,7 @@ class Iteration():
         new_model.remove_one_cable(rand_battery_1, rand_house_1)
         new_model.remove_one_cable(rand_battery_2, rand_house_2)
 
-        # add new cables
+        # # add new cables
         new_model.add_one_cable(rand_battery_1, rand_house_2)
         new_model.add_one_cable(rand_battery_2, rand_house_1)
 

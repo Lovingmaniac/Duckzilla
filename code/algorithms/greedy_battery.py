@@ -73,17 +73,17 @@ class FillBattery():
 
             # print(self.unconnected_houses)
 
-    def get_border_points(self) -> list[tuple]:
-        """Makes a list of tuples for all border points in grid."""
-        border_points = []
-        for i in range(51):
-            for j in range(51):
-                if i == j:
-                    border_points.append((i, j))
-                else:
-                    border_points.append((i, j))
-                    border_points.append((j, i))
-        return border_points
+    # def get_border_points(self) -> list[tuple]:
+    #     """Makes a list of tuples for all border points in grid."""
+    #     border_points = []
+    #     for i in range(51):
+    #         for j in range(51):
+    #             if i == j:
+    #                 border_points.append((i, j))
+    #             else:
+    #                 border_points.append((i, j))
+    #                 border_points.append((j, i))
+    #     return border_points
 
     def get_beginning_point(self) -> tuple:
         # take random border point and start from there

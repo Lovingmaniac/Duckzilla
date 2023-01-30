@@ -10,6 +10,7 @@ from code.classes.node import Node
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery
 from code.algorithms import randomise as rand
+from code.algorithms.iteration import Iteration
 
 class BreadthFirst():
     """
@@ -77,11 +78,10 @@ class BreadthFirst():
         return self.size() == 0
     
     def run(self):
-        # connect houses to batteries
-        fb = FillBattery(self.model)
-        fb.spiral_sort((0,0))
-        # rand.run(self.model)
-
+        # fb = FillBattery(self.model)
+        # fb.spiral_sort((0,0))
+        # print(len(self.model.batteries))
+        # print(len(self.model.batteries[0].houses))
         # initialize a count variable to keep track of the number of houses processed
         count = 0
         
@@ -94,6 +94,7 @@ class BreadthFirst():
 
             # iterate over the houses connected to this battery
             for house in houses:
+                house[0].cables = []
                 
                 count += 1
                 print(house, count)
@@ -128,6 +129,7 @@ class BreadthFirst():
                         for cable in new_state:
                             house[0].add_cable(cable.coordinates)
                             end_node.add(self.nodes[cable.coordinates])
+                            self.nodes[cable.coordinates].set_cable()
                         break
         
         # visualize the final model and generate a output file.

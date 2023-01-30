@@ -6,11 +6,12 @@ import time
 
 # Read image
 # image = imread('house.png')
-timestr = time.strftime("%Y%m%d-%H%M%S")
+
 
 def visualize(model):
     battery_img = "data/battery.png"
     house_img = "data/house2.png"
+    timestr = time.strftime("%Y%m%d-%H%M%S")
 
     # -------------------------------------test data----------------------------
     # dictionary = json.load(open(f'{output_file}.json', 'r'))

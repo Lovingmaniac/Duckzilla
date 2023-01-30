@@ -18,9 +18,10 @@ if __name__ == "__main__":
     grid = Grid()
 
     grid.make_nodes(51)
-    grid.load_grid(3)
+    grid.load_grid(2)
 
     model = Model(grid)
+    model.add_connections()
 
     #----------------random assignment of houses to batteries---------------
     # rand.baseline(model, 1)
@@ -58,12 +59,13 @@ if __name__ == "__main__":
     # print(model.calculate_costs())
 
     iteration = Iteration(battery_model)
-    iteration.run(10000)
-    print(model.total_costs)
+    iteration.run(1000)
+    # print(battery_model)
+    # print(model.total_costs)
 
     #--------------------------------------------------
 
-    # newest_model = model.copy()
-    # bf = BreadthFirst(newest_model)
-    # bf.run()
+    newest_model = model.copy()
+    bf = BreadthFirst(battery_model)
+    bf.run()
     

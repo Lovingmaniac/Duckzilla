@@ -38,33 +38,32 @@ class Model:
             return None
 
         # starting costs for 5 batteries
-        self.total_costs = 25000
+        # self.total_costs = 25000
 
-        # add cable costs
-        for node in self.nodes:
-            if self.nodes[node].is_cable:
-                self.total_costs += 9
+        # # add cable costs
+        # for node in self.nodes:
+        #     if self.nodes[node].is_cable:
+        #         self.total_costs += 9
 
-        return self.total_costs
+        # return self.total_costs
        
-        # # iterate over all batteries
-        # total_costs = 0
-        # for battery in self.batteries:
-        #     total_costs += 5000
-        #     # make a set of cables per battery
-        #     used_cables = set()
-        #     # iterate over all houses connected to battery
-        #     for house in battery.houses:
-        #         #for each cable connected to the battery check if it is already there
-        #         for cable in house.cables:
-        #             # for each new element add to the set
-        #             if not cable in used_cables:
-        #                 used_cables.add(cable)
-        #     # calculate the costs of each set and add to total
-        #     total_costs += ((len(used_cables) - 1) * 9)
-        #     print(total_costs)
-        # self.total_costs = total_costs
-        # return total_costs
+        # iterate over all batteries
+        total_costs = 0
+        for battery in self.batteries:
+            total_costs += 5000
+            # make a set of cables per battery
+            used_cables = set()
+            # iterate over all houses connected to battery
+            for house in battery.houses:
+                #for each cable connected to the battery check if it is already there
+                for cable in house.cables:
+                    # for each new element add to the set
+                    if not cable in used_cables:
+                        used_cables.add(cable)
+            # calculate the costs of each set and add to total
+            total_costs += ((len(used_cables) - 1) * 9)
+        self.total_costs = total_costs
+        return total_costs
 
     def get_possibilities(self) -> list:
         """Returns the remaining houses to be connected."""
