@@ -7,6 +7,7 @@ from code.classes.model import Model
 from code.visualization.visualization import visualize
 from code.classes.house import House
 from code.classes.node import Node
+from code.classes.battery import Battery
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery
 from code.algorithms import randomise as rand
@@ -21,7 +22,6 @@ class BreadthFirst():
     def __init__(self, input_model: Model):
         self.model = input_model
         self.nodes = input_model.nodes
-        self.unconnected_houses = input_model.unconnected_houses
 
         self.states = []
 
@@ -39,7 +39,7 @@ class BreadthFirst():
         """
         return self.states.pop(0)
 
-    def build_children(self, node: Node, list_cables):
+    def build_children(self, node: Node, list_cables: list) -> None:
         """
         Creates all possible child states and adds them to the list.
         """
@@ -58,7 +58,7 @@ class BreadthFirst():
                 self.archive.add(value)
                 self.states.append(new_list_cables)
     
-    def check_solution(self, new_model: Model):
+    def check_solution(self, new_model: Model) -> None:
         """
         Checks and accepts better solutions than the current solution.
         """ 
@@ -70,18 +70,17 @@ class BreadthFirst():
             self.best_solution = new_model
             self.best_value = new_value
 
-    def size(self):
-        #returns the size of the list of states
+    def size(self) -> int:
+        # returns the size of the list of states
         return len(self.states)
 
-    def done(self):
+    def done(self) -> bool:
         return self.size() == 0
     
-    def run(self):
-        # fb = FillBattery(self.model)
-        # fb.spiral_sort((0,0))
-        # print(len(self.model.batteries))
-        # print(len(self.model.batteries[0].houses))
+    def run(self) -> None:
+        """
+        runs the breadthfirst algorithm.
+        """
         # initialize a count variable to keep track of the number of houses processed
         count = 0
         
@@ -135,18 +134,34 @@ class BreadthFirst():
         # visualize the final model and generate a output file.
         visualize(self.model)
         output(self.model)
+        self.file_output(self.model)
     
 
-    def sort_houses(self, battery):
+    def sort_houses(self, battery: Battery):
+        """
+        sort the houses on the distance between it and the battery, stores it in a dictionary
+        """
         distances = {}
         
+        # iterates over the houses and calculates the distance
         for house in battery.houses:
             distance = self.model.manhattan_distance(battery.location, house.location)
             distances[house] = distance
         
+        # sorts the houses and returns them
         sorted_houses = sorted(distances.items(), key=lambda x:x[1], reverse= True)
         return sorted_houses
 
+    def file_output(self, model: Model)-> None:
+        """
+        takes a model and appends the data to a file
+        """
+        # makes a timestring
+        timestr = time.strftime("%Y%m%d-%H%M%S")
 
-
-                
+        # open the file and append the data
+        with open(f'output/breadthfirst/output.txt', 'a') as f:
+            if model.is_solution():
+                f.write(f'dag/tijd: {timestr}\nvisited states: {self.visited_state_count}\n max state size: {self.max_states_size} \n costs: {model.calculate_costs()}\n\n')
+            else:
+                f.write('Not a valid solution\n')

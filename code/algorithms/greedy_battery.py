@@ -99,22 +99,6 @@ class FillBattery():
         keys.sort()
         sorted_distances = {i: distances[i] for i in keys}
         return sorted_distances
-    
-    def add_house(self, house, battery):
-        pass
-        # self.model.make_cables()
-        # index = 0
-        # # print(f'house: {house}, id: {id(house)}')
-        # for huis in self.unconnected_houses:
-        #     # print(f'huis: {huis}, index: {index},  id: {id(house)}')
-        #     # print(huis == house)
-            
-        #     if huis == house:
-        #         new_house = self.unconnected_houses.pop(index)
-        #         print(new_house)
-        #         battery.add_house(new_house)
-        #         self.model.make_cables()
-        #     index += 1
 
     def make_grid(self, dimensions):
         grid = []

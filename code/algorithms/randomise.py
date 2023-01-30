@@ -26,8 +26,8 @@ def run(model):
             battery.add_house(house)
             house = model.unconnected_houses.pop()
             
-    # model.make_cables()
-
+    model.make_cables()
+    
 
 def get_score(model):
     """takes the manhattan distance between a battery and a house and adds that to a
@@ -45,7 +45,7 @@ def get_score(model):
     return costs
 
 
-def baseline(model, runs):
+def baseline(model: Model, runs):
     """Randomises the connections of the houses 100 times and appends the
     score to scores list"""
 
@@ -62,11 +62,11 @@ def baseline(model, runs):
             if costs < min_costs:
                 min_costs = costs
                 print(min_costs)
-                # visualize(base_model)
-            if model.is_solution():
+                visualize(base_model)
+            if base_model.is_solution():
                 f.write(f'{costs}\n')
             else:
-                f.write('0\n')
+                f.write('Not a valid solution\n')
 
             # if i in range(0, runs):
             #     print(costs)
