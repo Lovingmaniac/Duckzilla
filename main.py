@@ -6,7 +6,7 @@ from code.algorithms import randomise as rand
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery as fb
 from code.classes.node import Node
-# from code.algorithms.breadthfirst import BreadthFirst
+from code.algorithms.breadthfirst import BreadthFirst
 
 from code.algorithms.iteration import Iteration, IterationBF
 
@@ -65,8 +65,8 @@ if __name__ == "__main__":
     # print(battery_model)
     # print(model.total_costs)
 
-    iteration = IterationBF(battery_model)
-    iteration.run(1)
+    # iteration = IterationBF(battery_model)
+    # iteration.run(1)
 
     #--------------------------------------------------
     #---------------hillclimber non-random-------------
@@ -77,6 +77,6 @@ if __name__ == "__main__":
     #--------------------------------------------------
 
     # newest_model = model.copy()
-    # bf = BreadthFirst(battery_model)
-    # bf.run()
+    bf = BreadthFirst(battery_model)
+    bf.run()
     

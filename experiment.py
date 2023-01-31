@@ -19,3 +19,26 @@ while time.time() - start < 3600:
     print(f"run: {n_runs}")
     subprocess.call(["timeout", "60", "python3", "main.py"])
     n_runs += 1
+
+"""
+Alle algoritmes worden 2 uur gerund:
+
+Deze worden:
+
+random - 90 graden
+random - best first
+random - breadthfirst
+
+Greedy - 90 graden
+Greedy - best first
+Greedy - breadth first
+
+Iteration - 90 graden
+Iteration - best first
+Iteration - breadthfirst
+
+Hillclimber - 90 graden
+Hillclimber - best first
+Hillclimber - breadthfirst
+
+"""

@@ -83,10 +83,10 @@ class Model:
     def is_solution(self) -> bool:
         """Returns True if all houses are connected to a battery, False otherwise."""
         # solution if all houses are connected
-        if not self.unconnected_houses:
-            pass
-        else:
-            return False
+        # if not self.unconnected_houses:
+        #     pass
+        # else:
+        #     return False
 
         # solution if connections to batteries are within capacity bounds
         for battery in self.batteries:

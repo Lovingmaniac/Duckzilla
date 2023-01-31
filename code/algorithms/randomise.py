@@ -13,19 +13,16 @@ def run(model):
     # Shuffles the unconnected houses
     random.shuffle(model.unconnected_houses)
     random.shuffle(model.batteries)
-    # print(model.batteries)
 
-    # iterate over all the batteries
-    for battery in model.batteries:
+    # Iterates over the houses
+    for house in model.unconnected_houses:
+        # Iterates over the batteries
+        for battery in model.batteries:
 
-        # take the last house in the list
-        house = model.unconnected_houses.pop()
-
-        # checks wether the battery still has capacity and if there are houses left
-        while battery.has_space(house) and model.unconnected_houses:
-            battery.add_house(house)
-            house = model.unconnected_houses.pop()
-            
+            # Checks whether the battery has space for the house, and adds it if it does
+            if battery.has_space(house):
+                battery.add_house(house)
+                break
     model.make_cables()
     
 
