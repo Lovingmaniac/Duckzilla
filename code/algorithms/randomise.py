@@ -7,7 +7,7 @@ from code.classes.model import Model
 from code.visualization.visualization import visualize
 
 
-def run(model):
+def run(model, run_no, time_started):
     """Shuffles the list of unconnected houses and then one by one adds this to the batteries
     until these reach max capacity. Then it moves on to the next battery"""
 
@@ -26,22 +26,25 @@ def run(model):
                 break
 
     model.make_cables()
-<<<<<<< HEAD
-    
-    with open(f'output/random/output.csv', 'a', newline= '') as f:
-        writer = csv.writer(f)
-        writer.writerow('run', 'costs', 'time')
-        run(model)
-        costs = model.calculate_costs()
+    write_to_file(model, run_no, time_started)
 
+def write_to_file(model, run_no, time_started): 
+    start_time = time.time()
+    min_costs = 100000
+
+    with open(f'output/output_random_{time_started}.csv', 'a', newline= '') as f:
+        writer = csv.writer(f)
+        writer.writerow(['run', 'costs', 'time'])
+        costs = model.calculate_costs()
+        
         if costs < min_costs:
             min_costs = costs
         if model.is_solution():
-            writer.writerow(runs, costs, time)
+            run_time = time.time() - start_time
+            new_line = [run_no, costs, run_time]
+            writer.writerow(new_line)
         else:
             f.write('Not a valid solution\n')
-=======
->>>>>>> fcbdacb4459b12badc82fdc4f69b087f501cec8c
 
 def get_score(model):
     """takes the manhattan distance between a battery and a house and adds that to a

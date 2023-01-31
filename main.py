@@ -49,16 +49,20 @@ if __name__ == "__main__":
 
     # run randomise with simple 90 degree cables
     if args.random90:
+        run_no = 0
         while time.time() - start_time < args.random90:
+            run_no += 1
             new_model = model.copy()
-            rand.run(new_model)
+            rand.run(new_model, run_no, start_time)
             print(new_model.calculate_costs())
 
     # run randomise for X seconds, then make cables using breadthfirst
     elif args.random_bf:
+        run_no = 0
         while time.time() - start_time < args.random_bf:
+            run_no += 1
             new_model = model.copy()
-            rand.run(new_model)
+            rand.run(new_model, run_no, start_time)
         bf = BreadthFirst(new_model)
         bf.run()
         print(new_model.calculate_costs())
@@ -66,7 +70,7 @@ if __name__ == "__main__":
     # cables are made 90 degrees in iteration algorithm
     elif args.random_iteration90:
         new_model = model.copy()
-        rand.run(new_model)
+        rand.run(new_model, 1, 23)
         new_model.houses = model.houses
         iteration = Iteration(new_model)
         iteration.run(time_iteration=args.random_iteration_bf)
@@ -75,7 +79,7 @@ if __name__ == "__main__":
     # then cables are made using breadth first algorithm
     elif args.random_iteration_bf:
         new_model = model.copy()
-        rand.run(new_model)
+        rand.run(new_model, 1, 24)
         new_model.houses = model.houses
         iteration = Iteration(new_model)
         iteration.run(time_iteration=args.random_iteration_bf)

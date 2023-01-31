@@ -159,7 +159,7 @@ class BreadthFirst():
         timestr = time.strftime("%Y%m%d-%H%M%S")
 
         # open the file and append the data
-        with open(f'output/breadthfirst/output.txt', 'a') as f:
+        with open(f'output/output_breadthfirst.txt', 'a') as f:
             if model.is_solution():
                 f.write(f'dag/tijd: {timestr}\nvisited states: {self.visited_state_count}\n max state size: {self.max_states_size} \n costs: {model.calculate_costs()}\n\n')
             else:

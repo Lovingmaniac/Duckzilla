@@ -18,15 +18,12 @@ n_runs = 0
 
 while time.time() - start < 3600:
     print(f"run: {n_runs}")
-<<<<<<< HEAD
-    subprocess.call(["timeout", "1000", "python3", "code/algorithms/greedy_iteration_algorithm.py"])
-    n_runs += 1
-=======
-    subprocess.call(["timeout", "60", "python3", "main.py"])
+    subprocess.call(["timeout", "60", "python3", "main.py "])
+    
     n_runs += 1
 
 """
-Alle algoritmes worden 2 uur gerund:
+Alle algoritmes worden 1 uur gerund:
 
 Deze worden:
 
@@ -47,4 +44,3 @@ Hillclimber - best first
 Hillclimber - breadthfirst
 
 """
->>>>>>> 270f5111cb1f74569662d566de786c536e143504
