@@ -46,4 +46,4 @@ class Battery:
     def has_space(self, house: House) -> bool:
         """Returns true if the battery has sufficient space for a house
         else returns false."""
-        return self.current_capacity > house.get_output()
+        return self.current_capacity >= house.get_output()

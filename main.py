@@ -12,7 +12,7 @@ from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery as fb
 from code.classes.node import Node
 from code.algorithms.breadthfirst import BreadthFirst
-from code.algorithms.iteration import Iteration
+from code.algorithms.iteration import Iteration, IterationBF
 
 
 # from code.algorithms import closest_houses as closest

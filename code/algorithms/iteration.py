@@ -1,9 +1,12 @@
 import time
 import csv
 import random
+import time
+
 
 from code.classes.model import Model
 from code.visualization.visualization import visualize
+from code.algorithms.breadthfirst import BreadthFirst
 
 """
 to do:
@@ -172,6 +175,7 @@ class Iteration():
         wrapper around run_algorithm to either exit after N iterations, or after a certain amount of time has passed
         """
         start_time = time.time()
+
         # run for iteration amount of iterations
         if iteration:
             for iteration in range(iteration):
@@ -180,3 +184,37 @@ class Iteration():
         elif max_runtime: # run for 
             while time.time() - start_time < max_runtime:
                 self.run_algorithm(iteration, time_iteration)
+
+
+class IterationBF(Iteration):
+    def __init__(self, model):
+        super().__init__(model)
+
+    def mutate_battery_connection(self, new_model: Model):
+        """Switches two random existing connections of model. 
+        Random batteries are generated, with random houses connected to each battery.
+        Houses are swapped, from house lists in batteries. 
+        Old cables are removed and new cables are made.
+
+        Arguments:
+        new_model -- the model of input with existing connections"""
+        # get random batteries
+        rand_battery_1 = self.get_rand_battery(new_model)
+        rand_battery_2 = self.get_rand_battery(new_model)
+
+        # second random battery has to differ from first one
+        while rand_battery_2 == rand_battery_1:
+            rand_battery_2 = self.get_rand_battery(new_model)
+
+        # generate random houses
+        rand_house_1 = self.get_rand_house(new_model, rand_battery_1)
+        rand_house_2 = self.get_rand_house(new_model, rand_battery_2)
+
+        # swap houses from battery lists
+        self.swap_houses(rand_battery_1,
+                         rand_battery_2,
+                         rand_house_1,
+                         rand_house_2)
+
+        bf = BreadthFirst(new_model)
+        bf.run()
