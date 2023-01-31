@@ -1,3 +1,5 @@
+import time
+import csv
 import random
 import time
 
@@ -108,7 +110,7 @@ class Iteration():
         for i in range(5):
             self.mutate_battery_connection(new_model)
 
-    def check_solution(self, new_model: Model) -> None:
+    def check_solution(self, new_model: Model, iteration: int, time_str) -> None:
         """Checks if solution is a better solution than the best solution reached.
         If solution has lower costs and is valid,
         current best costs and model solution are switched to solution model.
@@ -124,11 +126,24 @@ class Iteration():
             return None
 
         if new_solution < old_solution:
-            print("found better solution")
             self.best_costs = new_solution
-            print(new_solution)
             self.model = new_model
             visualize(self.model)
+            self.experiment_file(iteration, self.best_costs, time_str)
+            print("found better solution")
+            print(new_solution)
+
+    def experiment_file(self, iteration: int, total_costs: int, time):
+        with open("output/experiment_iteration.csv","a",newline="") as experiment:
+
+            # creating writer object
+            csv_writer = csv.writer(experiment)
+
+            # make list of values for line
+            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time: {time}\n"]
+
+            # appending data
+            csv_writer.writerow(line)
 
     def run(self, iterations: int) -> None:
         """Runs the hillclimber algorithm for a specific amount of iterations.
@@ -138,20 +153,16 @@ class Iteration():
         Arguments:
         iterations -- the amount of times to run this function"""
 
-        for iteration in range(iterations):
+        start_time = time.time()
+
+        for iteration, idx in enumerate(range(iterations)):
             # make copy of model for mutations
             new_model = self.model.copy()
 
             # mutate model
             self.mutate_model(new_model)
 
-            # if solution is better and valid, change swap model to mutate model
-            self.check_solution(new_model)
-            timestr = time.strftime("%Y%m%d-%H%M%S")
+            time_iteration = time.time() - start_time
 
-            # open the file and append the data
-            with open(f'output/iteration/output.txt', 'a') as f:
-                if new_model.is_solution():
-                    f.write(f'dag/tijd: {timestr}\n costs: {new_model.calculate_costs()}\n\n')
-                else:
-                    f.write('Not a valid solution\n')
+            # if solution is better and valid, change swap model to mutate model
+            self.check_solution(new_model, idx, time_iteration)
