@@ -1,3 +1,5 @@
+import time
+import csv
 import random
 
 from code.classes.model import Model
@@ -137,8 +139,8 @@ class Iteration():
             csv_writer = csv.writer(experiment)
 
             # make list of values for line
-            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time: {time}"]
-            
+            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time: {time}\n"]
+
             # appending data
             csv_writer.writerow(line)
 
@@ -150,12 +152,16 @@ class Iteration():
         Arguments:
         iterations -- the amount of times to run this function"""
 
-        for iteration in range(iterations):
+        start_time = time.time()
+
+        for iteration, idx in enumerate(range(iterations)):
             # make copy of model for mutations
             new_model = self.model.copy()
 
             # mutate model
             self.mutate_model(new_model)
 
+            time_iteration = time.time() - start_time
+
             # if solution is better and valid, change swap model to mutate model
-            self.check_solution(new_model)
+            self.check_solution(new_model, idx, time_iteration)
