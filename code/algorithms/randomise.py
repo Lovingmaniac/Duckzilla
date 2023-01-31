@@ -24,7 +24,9 @@ def run(model):
             if battery.has_space(house):
                 battery.add_house(house)
                 break
+
     model.make_cables()
+<<<<<<< HEAD
     
     with open(f'output/random/output.csv', 'a', newline= '') as f:
         writer = csv.writer(f)
@@ -38,6 +40,8 @@ def run(model):
             writer.writerow(runs, costs, time)
         else:
             f.write('Not a valid solution\n')
+=======
+>>>>>>> fcbdacb4459b12badc82fdc4f69b087f501cec8c
 
 def get_score(model):
     """takes the manhattan distance between a battery and a house and adds that to a
