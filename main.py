@@ -73,7 +73,7 @@ if __name__ == "__main__":
         rand.run(new_model, 1, 23)
         new_model.houses = model.houses
         iteration = Iteration(new_model)
-        iteration.run(time_iteration=args.random_iteration_bf)
+        iteration.run(max_runtime=args.random_iteration90)
 
     # runs random once, and improves it until time is over,
     # then cables are made using breadth first algorithm
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         rand.run(new_model, 1, 24)
         new_model.houses = model.houses
         iteration = Iteration(new_model)
-        iteration.run(time_iteration=args.random_iteration_bf)
+        iteration.run(max_runtime=args.random_iteration_bf)
         bf = BreadthFirst(new_model)
         bf.run()
 
@@ -103,13 +103,13 @@ if __name__ == "__main__":
         fillbattery = fb(model)
         fillbattery.run((0, 0))
         iteration = Iteration(model)
-        iteration.run(time_iteration=args.greedy_iteration90)
+        iteration.run(max_runtime=args.greedy_iteration90)
 
     #
     elif args.greedy_iteration_bf:
         fillbattery = fb(model)
         fillbattery.run((0, 0))
         iteration = Iteration(model)
-        iteration.run(time_iteration=args.greedy_iteration_bf)
+        iteration.run(max_runtime=args.greedy_iteration_bf)
         bf = BreadthFirst(model)
         bf.run()

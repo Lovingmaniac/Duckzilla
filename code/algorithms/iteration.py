@@ -111,7 +111,7 @@ class Iteration():
         for i in range(5):
             self.mutate_battery_connection(new_model)
 
-    def check_solution(self, new_model: Model, iteration: int, time_iteration) -> None:
+    def check_solution(self, new_model: Model, it_count: int, it_time) -> None:
         """Checks if solution is a better solution than the best solution reached.
         If solution has lower costs and is valid,
         current best costs and model solution are switched to solution model.
@@ -132,7 +132,7 @@ class Iteration():
             print(f"self.best_costs after {self.best_costs}")
             print(f"old_solution : {old_solution}, new_solution: {new_solution}")
             #visualize(self.model)
-            self.experiment_file(iteration, self.best_costs, time_iteration)
+            self.experiment_file(it_count, self.best_costs, it_time)
 
     def experiment_file(self, iteration: int, total_costs: int, time_iteration):
         with open("output/experiment_iteration.csv","a",newline="") as experiment:
@@ -140,15 +140,14 @@ class Iteration():
             csv_writer = csv.writer(experiment)
 
             # make list of values for line
-            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time: {time_iteration}"]
+            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time since start run: {time_iteration}"]
 
             # appending data
             csv_writer.writerow(line)
 
     def run_algorithm(
             self,
-            time_iteration,
-            iteration):
+            it_count, it_time):
         """Runs the hillclimber algorithm for a specific amount of iterations.
         First a copy is made of current model solution.
         Then a mutation is made of current model solution.
@@ -164,10 +163,9 @@ class Iteration():
         self.mutate_model(new_model)
 
         # if solution is better and valid, change swap model to mutate model
-        self.check_solution(new_model, iteration, time_iteration)
+        self.check_solution(new_model, it_count, it_time)
 
     def run(self,
-            time_iteration: int = None,
             max_runtime: int = None,
             iteration: int = None,
             ) -> None:
@@ -175,15 +173,18 @@ class Iteration():
         wrapper around run_algorithm to either exit after N iterations, or after a certain amount of time has passed
         """
         start_time = time.time()
+        it_count = 0
 
         # run for iteration amount of iterations
         if iteration:
             for iteration in range(iteration):
                 self.run_algorithm(iteration,
                                    time_iteration)
-        elif max_runtime: # run for 
+        elif max_runtime:
             while time.time() - start_time < max_runtime:
-                self.run_algorithm(iteration, time_iteration)
+                it_count += 1
+                it_time = time.time() - start_time
+                self.run_algorithm(it_count, it_time)
 
 
 class IterationBF(Iteration):
