@@ -25,9 +25,8 @@ def run(model):
         while battery.has_space(house) and model.unconnected_houses:
             battery.add_house(house)
             house = model.unconnected_houses.pop()
-            
+
     model.make_cables()
-    
 
 def get_score(model):
     """takes the manhattan distance between a battery and a house and adds that to a
