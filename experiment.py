@@ -16,9 +16,9 @@ from code.algorithms import greedy_iteration_bf
 start = time.time()
 n_runs = 0
 
-while time.time() - start < 3600:
+while time.time() - start < 60:
     print(f"run: {n_runs}")
-    subprocess.call(["timeout", "60", "python3", "main.py "])
+    subprocess.call(["timeout", "60", "python3", "main.py -r 30"])
     
     n_runs += 1
 
