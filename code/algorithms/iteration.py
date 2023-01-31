@@ -34,8 +34,7 @@ class Iteration():
             raise Exception("Please provide a valid solution.")
 
         self.model = model.copy()
-        self.original_costs = model.calculate_costs()
-        self.best_costs = 100000
+        self.best_costs = model.calculate_costs()
 
     def mutate_battery_connection(self, new_model: Model):
         """Switches two random existing connections of model. 
@@ -109,7 +108,7 @@ class Iteration():
         for i in range(5):
             self.mutate_battery_connection(new_model)
 
-    def check_solution(self, new_model: Model, iteration: int, time_str) -> None:
+    def check_solution(self, new_model: Model, iteration: int, time_iteration) -> None:
         """Checks if solution is a better solution than the best solution reached.
         If solution has lower costs and is valid,
         current best costs and model solution are switched to solution model.
@@ -127,24 +126,26 @@ class Iteration():
         if new_solution < old_solution:
             self.best_costs = new_solution
             self.model = new_model
-            visualize(self.model)
-            self.experiment_file(iteration, self.best_costs, time_str)
-            print("found better solution")
-            print(new_solution)
+            print(f"self.best_costs after {self.best_costs}")
+            print(f"old_solution : {old_solution}, new_solution: {new_solution}")
+            #visualize(self.model)
+            self.experiment_file(iteration, self.best_costs, time_iteration)
 
-    def experiment_file(self, iteration: int, total_costs: int, time):
+    def experiment_file(self, iteration: int, total_costs: int, time_iteration):
         with open("output/experiment_iteration.csv","a",newline="") as experiment:
-
             # creating writer object
             csv_writer = csv.writer(experiment)
 
             # make list of values for line
-            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time: {time}\n"]
+            line = [f"iteration: {iteration}", f" total costs: {total_costs}", f" time: {time_iteration}"]
 
             # appending data
             csv_writer.writerow(line)
 
-    def run(self, iterations: int) -> None:
+    def run_algorithm(
+            self,
+            time_iteration,
+            iteration):
         """Runs the hillclimber algorithm for a specific amount of iterations.
         First a copy is made of current model solution.
         Then a mutation is made of current model solution.
@@ -152,16 +153,30 @@ class Iteration():
         Arguments:
         iterations -- the amount of times to run this function"""
 
+
+        # make copy of model for mutations
+        new_model = self.model.copy()
+
+        # mutate model
+        self.mutate_model(new_model)
+
+        # if solution is better and valid, change swap model to mutate model
+        self.check_solution(new_model, iteration, time_iteration)
+
+    def run(self,
+            time_iteration: int = None,
+            max_runtime: int = None,
+            iteration: int = None,
+            ) -> None:
+        """
+        wrapper around run_algorithm to either exit after N iterations, or after a certain amount of time has passed
+        """
         start_time = time.time()
-
-        for iteration, idx in enumerate(range(iterations)):
-            # make copy of model for mutations
-            new_model = self.model.copy()
-
-            # mutate model
-            self.mutate_model(new_model)
-
-            time_iteration = time.time() - start_time
-
-            # if solution is better and valid, change swap model to mutate model
-            self.check_solution(new_model, idx, time_iteration)
+        # run for iteration amount of iterations
+        if iteration:
+            for iteration in range(iteration):
+                self.run_algorithm(iteration,
+                                   time_iteration)
+        elif max_runtime: # run for 
+            while time.time() - start_time < max_runtime:
+                self.run_algorithm(iteration, time_iteration)
