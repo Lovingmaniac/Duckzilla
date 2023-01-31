@@ -1,6 +1,7 @@
 import copy
 import random
 import time
+import csv
 
 from code.classes.model import Model
 from code.visualization.visualization import visualize
@@ -25,6 +26,18 @@ def run(model):
                 break
     model.make_cables()
     
+    with open(f'output/random/output.csv', 'a', newline= '') as f:
+        writer = csv.writer(f)
+        writer.writerow('run', 'costs', 'time')
+        run(model)
+        costs = model.calculate_costs()
+
+        if costs < min_costs:
+            min_costs = costs
+        if model.is_solution():
+            writer.writerow(runs, costs, time)
+        else:
+            f.write('Not a valid solution\n')
 
 def get_score(model):
     """takes the manhattan distance between a battery and a house and adds that to a
