@@ -30,6 +30,7 @@ if __name__ == "__main__":
 
     battery_model= model.copy()
     rand.run(battery_model)
+    visualize(battery_model)
     # # closest.run(model)
     # # print(model.houses)
     # visualize(new_model)
@@ -60,7 +61,7 @@ if __name__ == "__main__":
     # print(model.calculate_costs())
 
     # iteration = Iteration(battery_model)
-    # iteration.run(1000)
+    # iteration.run(1000000)
     # print(battery_model)
     # print(model.total_costs)
 

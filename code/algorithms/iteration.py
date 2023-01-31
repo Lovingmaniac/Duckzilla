@@ -1,4 +1,5 @@
 import random
+import time
 
 from code.classes.model import Model
 from code.visualization.visualization import visualize
@@ -146,3 +147,11 @@ class Iteration():
 
             # if solution is better and valid, change swap model to mutate model
             self.check_solution(new_model)
+            timestr = time.strftime("%Y%m%d-%H%M%S")
+
+            # open the file and append the data
+            with open(f'output/iteration/output.txt', 'a') as f:
+                if new_model.is_solution():
+                    f.write(f'dag/tijd: {timestr}\n costs: {new_model.calculate_costs()}\n\n')
+                else:
+                    f.write('Not a valid solution\n')

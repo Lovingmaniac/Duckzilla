@@ -62,7 +62,7 @@ def visualize(model):
     ax.grid(True, which="both", axis="both", linestyle="-", color="gray", linewidth=0.5)
     fig.suptitle(f'costs: {model.calculate_costs()}')
     plt.savefig(f"output/grid_{timestr}.png")
-    plt.show()
+    plt.close()
 
 
 def imscatter(x, y, image, ax=None, zoom=1):

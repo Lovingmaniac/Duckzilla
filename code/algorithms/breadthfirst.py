@@ -17,8 +17,6 @@ class BreadthFirst():
     """
     A Breadth First algorithm that makes a queue for every state in which the cables can be laid for every house.
     """
-
-
     def __init__(self, input_model: Model):
         self.model = input_model
         self.nodes = input_model.nodes
