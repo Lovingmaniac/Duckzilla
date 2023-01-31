@@ -11,7 +11,7 @@ from code.classes.battery import Battery
 from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery
 from code.algorithms import randomise as rand
-from code.algorithms.iteration import Iteration
+# from code.algorithms.iteration import Iteration
 
 class BreadthFirst():
     """
@@ -88,6 +88,7 @@ class BreadthFirst():
             end_node = set([self.nodes[(battery.location.x, battery.location.y)]])
             # shuffles the list of houses connected to this battery
             houses = self.sort_houses(battery)
+            random.shuffle(houses)
 
             # iterate over the houses connected to this battery
             for house in houses:

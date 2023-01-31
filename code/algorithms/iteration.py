@@ -5,6 +5,7 @@ import time
 
 from code.classes.model import Model
 from code.visualization.visualization import visualize
+from code.algorithms.breadthfirst import BreadthFirst
 
 """
 to do:
@@ -166,3 +167,38 @@ class Iteration():
 
             # if solution is better and valid, change swap model to mutate model
             self.check_solution(new_model, idx, time_iteration)
+
+
+class IterationBF(Iteration):
+    def __init__(self, model):
+        super().__init__(model)
+        
+    
+    def mutate_battery_connection(self, new_model: Model):
+        """Switches two random existing connections of model. 
+        Random batteries are generated, with random houses connected to each battery.
+        Houses are swapped, from house lists in batteries. 
+        Old cables are removed and new cables are made.
+
+        Arguments:
+        new_model -- the model of input with existing connections"""
+        # get random batteries
+        rand_battery_1 = self.get_rand_battery(new_model)
+        rand_battery_2 = self.get_rand_battery(new_model)
+
+        # second random battery has to differ from first one
+        while rand_battery_2 == rand_battery_1:
+            rand_battery_2 = self.get_rand_battery(new_model)
+
+        # generate random houses
+        rand_house_1 = self.get_rand_house(new_model, rand_battery_1)
+        rand_house_2 = self.get_rand_house(new_model, rand_battery_2)
+
+        # swap houses from battery lists
+        self.swap_houses(rand_battery_1,
+                         rand_battery_2,
+                         rand_house_1,
+                         rand_house_2)
+
+        bf = BreadthFirst(new_model)
+        bf.run()
