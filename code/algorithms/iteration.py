@@ -6,6 +6,8 @@ import random
 from code.classes.model import Model
 from code.classes.house import House
 from code.classes.battery import Battery
+from code.visualization.visualization import visualize
+from code.visualization.output import output
 
 
 class Iteration:
@@ -147,6 +149,8 @@ class Iteration:
             self.best_costs = new_solution
             self.model = new_model
             self.experiment_file(it_count, self.best_costs, it_time)
+            visualize(new_model)
+            output(new_model)
 
     def experiment_file(self, it_count: int, total_costs: int, it_time: float) -> None:
         """

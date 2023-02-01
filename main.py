@@ -12,7 +12,7 @@ from code.visualization.output import output
 from code.algorithms.greedy_battery import FillBattery as fb
 from code.classes.node import Node
 from code.algorithms.breadthfirst import BreadthFirst
-from code.algorithms.iteration import Iteration, IterationBF
+from code.algorithms.iteration import Iteration
 
 
 # from code.algorithms import closest_houses as closest
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     start_time = time.time()
     grid = Grid()
     grid.make_nodes(51)
-    grid.load_grid(1)
+    grid.load_grid(2)
     model = Model(grid)
     model.add_connections()
     it_count = 0
@@ -75,8 +75,7 @@ if __name__ == "__main__":
         new_model.houses = model.houses
         iteration = Iteration(new_model)
         iteration.run(max_runtime=args.random_iteration)
-        visualize(new_model)
-        output(new_model)
+        
 
     # runs random once, and improves it until time is over,
     # then cables are made using breadth first algorithm
