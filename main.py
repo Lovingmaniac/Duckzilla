@@ -40,7 +40,7 @@ if __name__ == "__main__":
     start_time = time.time()
     grid = Grid()
     grid.make_nodes(51)
-    grid.load_grid(2)
+    grid.load_grid(1)
     model = Model(grid)
     model.add_connections()
     it_count = 0
@@ -50,17 +50,18 @@ if __name__ == "__main__":
         run_no = 0
         while time.time() - start_time < args.random:
             run_no += 1
-            rand.run(model, run_no, start_time)
+            new_model = model.copy()
+            rand.run(new_model, run_no, start_time)
             print(
                 f"iteration number: {run_no}, time since start run{time.time() - start_time}")
-
     # run randomise for X seconds, then make cables using breadthfirst
     elif args.random_bf:
         run_no = 0
         while time.time() - start_time < args.random_bf:
+            new_model = model.copy()
             run_no += 1
-            rand.run(model, run_no, start_time)
-        bf = BreadthFirst(model)
+            rand.run(new_model, run_no, start_time)
+        bf = BreadthFirst(new_model)
         bf.run()
         print(f"iteration number: {run_no}, time since start run: {time.time() - start_time}")
 
@@ -111,6 +112,3 @@ if __name__ == "__main__":
         iteration.run(max_runtime=args.greedy_iteration_bf)
         bf = BreadthFirst(model)
         bf.run()
-
-    visualize(model)
-    output(model)

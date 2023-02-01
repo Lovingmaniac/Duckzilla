@@ -84,7 +84,7 @@ class BreadthFirst():
             end_node = set([self.nodes[(battery.location.x, battery.location.y)]])
             # shuffles the list of houses connected to this battery
             houses = self.sort_houses(battery)
-            random.shuffle(houses)
+            # random.shuffle(houses)
 
             # iterate over the houses connected to this battery
             for house in houses:

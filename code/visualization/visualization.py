@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import numpy as np
 import time
+import json
 
 def visualize(model):
     battery_img = "data/battery.png"
@@ -9,15 +10,21 @@ def visualize(model):
     timestr = time.strftime("%Y%m%d-%H%M%S")
 
     # -------------------------------------test data----------------------------
-    # dictionary = json.load(open(f'{output_file}.json', 'r'))
+    # dictionary = json.load(open(f'output/output_20230201-171338.json', 'r'))
     # district_info = dictionary.pop(0)
     # x_batteries = []
     # y_batteries = []
     # print(dictionary)
+    # x_houses = []
+    # y_houses = []
+
     # for battery in dictionary:
     #     location = battery['location'].split(',')
     #     x_batteries.append(int(location[0]))
     #     y_batteries.append(int(location[1]))
+    #     # for house in 
+    # #     x_houses.append(house.location[0])
+    # #     y_houses.append(house.location[1])
 
     # -------------------------------------source data from grid----------------
     x_batteries = []

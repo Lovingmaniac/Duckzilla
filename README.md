@@ -18,11 +18,11 @@ Deze code is geschreven in Python 3.8.10. In requirements.txt staan de benodigde
 
 Het programma kan gebruikt worden met het volgende commando met daarachter een instructie voor het algoritme wat gedraait moet worden:
 
-    python main.py
+    python main.py              genereert een leeg grid
 
     -r x                        voor random algoritme voor x seconden paden 90 graden
     --random_bf x               voor random algoritme voor x seconden, paden met breadthfirst
-    --random_iteration x      random met een hillclimber voor x seconden paden 90 graden
+    --random_iteration x        random met een hillclimber voor x seconden paden 90 graden
     --random_iteration_bf x     random met een hillclimber voor x sconden paden met breadthfirst
     -g x                        greedy 1 keer paden 90 graden
     --greedy_bf x               greedy 1 keer paden met breadthfirst
@@ -31,7 +31,7 @@ Het programma kan gebruikt worden met het volgende commando met daarachter een i
     -help                       geeft aan hoe de commando's gebruikt kunnen worden
 
 ### Structuur
-
+as
 De volgende lijst beschrijft in welke mappen de bestanden te vinden zijn:
 - **/code**: bevat alle code van dit project
     - **/code/algorithms**: bevat de code voor de algoritmes

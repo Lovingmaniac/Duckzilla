@@ -4,6 +4,7 @@ import csv
 
 from code.classes.model import Model
 from code.visualization.visualization import visualize
+from code.visualization.output import output
 
 
 def run(model, run_no, time_started):
@@ -39,6 +40,8 @@ def write_to_file(model, run_no, time_started):
         
         if costs < min_costs:
             min_costs = costs
+            visualize(model)
+            output(model)
         if model.is_solution():
             run_time = time.time() - start_time
             new_line = [run_no, costs, run_time]

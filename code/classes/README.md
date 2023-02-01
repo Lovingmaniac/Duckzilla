@@ -1,0 +1,42 @@
+# classes
+
+- **battery**
+    - init: x, y, capacity, uid
+    - add_house: house      *voegt een huis toe aan de batterij*
+    - remove_house: house   *verwijdert een huis uit de batterij*
+    - get_capacity:         *geeft vrije capaciteit van de batterij*
+    - get_location:         *geeft de locatie van de batterij in een str*
+    - has_space: house      *geeft aan of het huis past of niet* 
+- **grid**
+    - init: 
+    - make_nodes: dimensions    *maakt alle gridpunten in de vorm van een node*
+    - load_grid: district       *laadt alle huizen en batterijen in het grid*
+- **house**
+    - init: x, y, output
+    - add_cable: location       *voegt kabel toe aan een huis*
+    - remove_cable: location    *verwijdert kabel uit huis*
+    - get_output:               *geeft de output van een huis*
+    - get_location:             *geeft de locatie van een huis*
+    - set_connected:            *Slaat op dat een huis verbonden is*
+    - get_cables:               *geeft een lijst met kabels waarmee het huis is verbonden met een batterij*
+- **model**
+    - init: grid
+    - add_connections:                      *maak de connecties aan tussen de nodes*
+    - calculate_costs:                      *bereken hoeveel het model kost / geef een score*
+    - get_possibilities:                    *geeft aan welke huizen niet zijn verbonden*
+    - manhattan_distance: point1, point 2   *berekent de afstand tussen 2 punten*
+    - is_solution:                          *geeft aan of iets een geldige oplossing is*
+    - make_cables:                          *maakt kabels door eerst horizontaal te zoeken en dan verticaal*
+    - remove_one_cable: batterij, huis      *verwijdert de kabels van 1 huis*
+    - add_one_cable: batterij, huis         *maakt 1 kabel*
+    - copy                                  *maakt een kopie van het model*
+- **node**
+    - init: x,y
+    - add_connection: node              *voegt een connectie toe*
+    - get_connections:                  *geeft alle connecties van de node*
+    - add_type:                         *maakt de node een huis of een batterij*
+    - get_type:                         *geeft het type van de node*
+    - set_cable:                        *maakt de node een kabel*
+    - remove_cable:                     *haalt de kabel uit de node*
+    - add_typename: typename            *geeft de node een naam*
+    - remove_typename:                  *verwijdert de naam van de node* 

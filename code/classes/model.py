@@ -67,6 +67,9 @@ class Model:
 
     def get_possibilities(self) -> list:
         """Returns the remaining houses to be connected."""
+        # for house in self.houses:
+        #     if house.is_connected:
+        #         self.unconnected_houses.remove(house)
         return self.unconnected_houses
 
     # Calculating Manhattan Distance from Scratch
