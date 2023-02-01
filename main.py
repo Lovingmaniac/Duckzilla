@@ -74,6 +74,8 @@ if __name__ == "__main__":
         new_model.houses = model.houses
         iteration = Iteration(new_model)
         iteration.run(max_runtime=args.random_iteration)
+        visualize(new_model)
+        output(new_model)
 
     # runs random once, and improves it until time is over,
     # then cables are made using breadth first algorithm

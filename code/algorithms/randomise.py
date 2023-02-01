@@ -1,4 +1,3 @@
-import copy
 import random
 import time
 import csv
@@ -23,6 +22,7 @@ def run(model, run_no, time_started):
             # Checks whether the battery has space for the house, and adds it if it does
             if battery.has_space(house):
                 battery.add_house(house)
+                house.set_connected()
                 break
 
     model.make_cables()

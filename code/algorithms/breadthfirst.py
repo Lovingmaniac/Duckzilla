@@ -1,34 +1,29 @@
 import copy
 import time
 import random
-import math
 
 from code.classes.model import Model
 from code.visualization.visualization import visualize
-from code.classes.house import House
 from code.classes.node import Node
 from code.classes.battery import Battery
 from code.visualization.output import output
-from code.algorithms.greedy_battery import FillBattery
-from code.algorithms import randomise as rand
-# from code.algorithms.iteration import Iteration
 
 class BreadthFirst():
     """
     A Breadth First algorithm that makes a queue for every state in which the cables can be laid for every house.
     """
     def __init__(self, input_model: Model):
-        self.model = input_model
-        self.nodes = input_model.nodes
+        self.model: Model = input_model
+        self.nodes: Node = input_model.nodes
 
-        self.states = []
+        self.states: list = []
 
         self.best_value = 100000
         self.best_solution = None
         
-        self.visited_state_count = 0
-        self.max_states_size = len(self.states)
-        self.states_sizes = []
+        self.visited_state_count: int = 0
+        self.max_states_size: int = len(self.states)
+        self.states_sizes: list = []
         self.solution_count = 0
 
     def get_next_state(self) -> list:
@@ -47,6 +42,7 @@ class BreadthFirst():
         
         # iterates over the values for the connections
         for value in values:
+
             # copies the list of cables and appends the new state
             new_list_cables = copy.deepcopy(list_cables)
             new_list_cables.append(self.nodes[value])
@@ -63,7 +59,7 @@ class BreadthFirst():
         # calculates the costs of the model
         new_value = new_model.calculate_costs()
 
-        # safes the best solution
+        # saves the best solution
         if new_value <= self.best_value:
             self.best_solution = new_model
             self.best_value = new_value
