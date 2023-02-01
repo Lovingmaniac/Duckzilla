@@ -1,3 +1,4 @@
+
 import math
 import argparse
 import time
@@ -13,9 +14,6 @@ from code.algorithms.greedy_battery import FillBattery as fb
 from code.classes.node import Node
 from code.algorithms.breadthfirst import BreadthFirst
 from code.algorithms.iteration import Iteration
-
-
-# from code.algorithms import closest_houses as closest
 
 if __name__ == "__main__":
 
@@ -52,40 +50,36 @@ if __name__ == "__main__":
         run_no = 0
         while time.time() - start_time < args.random:
             run_no += 1
-            new_model = model.copy()
-            rand.run(new_model, run_no, start_time)
-            print(new_model.calculate_costs())
+            rand.run(model, run_no, start_time)
+            print(
+                f"iteration number: {run_no}, time since start run{time.time() - start_time}")
 
     # run randomise for X seconds, then make cables using breadthfirst
     elif args.random_bf:
         run_no = 0
         while time.time() - start_time < args.random_bf:
             run_no += 1
-            new_model = model.copy()
-            rand.run(new_model, run_no, start_time)
-        bf = BreadthFirst(new_model)
+            rand.run(model, run_no, start_time)
+        bf = BreadthFirst(model)
         bf.run()
-        print(new_model.calculate_costs())
+        print(f"iteration number: {run_no}, time since start run: {time.time() - start_time}")
+
 
     # runs random once, and improves it until time is over,
     # cables are made 90 degrees in iteration algorithm
     elif args.random_iteration:
-        new_model = model.copy()
-        rand.run(new_model, 1, 1)
-        new_model.houses = model.houses
-        iteration = Iteration(new_model)
+        rand.run(model, 1, 1)
+        iteration = Iteration(model)
         iteration.run(max_runtime=args.random_iteration)
         
 
     # runs random once, and improves it until time is over,
     # then cables are made using breadth first algorithm
     elif args.random_iteration_bf:
-        new_model = model.copy()
-        rand.run(new_model, 1, 1)
-        new_model.houses = model.houses
-        iteration = Iteration(new_model)
+        rand.run(1, 1)
+        iteration = Iteration(model)
         iteration.run(max_runtime=args.random_iteration_bf)
-        bf = BreadthFirst(new_model)
+        bf = BreadthFirst(model)
         bf.run()
 
     # runs greedy algorithm once
@@ -117,3 +111,6 @@ if __name__ == "__main__":
         iteration.run(max_runtime=args.greedy_iteration_bf)
         bf = BreadthFirst(model)
         bf.run()
+
+    visualize(model)
+    output(model)
