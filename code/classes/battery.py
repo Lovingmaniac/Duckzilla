@@ -10,6 +10,7 @@ class Battery:
         self.capacity -- the total capacity of energy for battery
         self.current_capacity -- the remaining capacity for battery left
         self.houses -- a list of houses that are connected to the battery
+        self.uid -- id number of battery
         """
         self.location = namedtuple("location", "x y")(x, y)
         self.capacity = capacity
@@ -20,12 +21,14 @@ class Battery:
     def __repr__(self):
         return f"battery: loc:{self.location}, cap:{self.current_capacity}"
 
-    def add_house(self, house: House) -> None:
+    def add_house(self, house: "House") -> None:
         """
         Adds a house to self, sets house to "connected"
         and updates current capacity.
+
+        Arguments:
+        house -- house object to add to battery's houses list
         """
-        
         # add house to house list
         self.houses.append(house)
 
@@ -35,21 +38,27 @@ class Battery:
         # update battery capacity
         self.current_capacity -= house.get_output()
 
-    def remove_house(self, house: House) -> None:
+    def remove_house(self, house: "House") -> None:
         """
         Removes a house from battery and updates current capacity.
+        Arguments:
+        house -- house object to remove from battery's houses list
         """
-        
+        # remove house from list
         self.houses.remove(house)
+
+        # update battery capacity
         self.current_capacity += house.get_output()
 
     def get_capacity(self) -> float:
         """
         Returns the remaining capacity of the battery.
+        Returns:
+        self.current_capacity -- the current capacity left in battery
         """
         return self.current_capacity
 
-    def get_location(self):
+    def get_location(self) -> str:
         """
         Returns the x-y coordinations of given house.
         """

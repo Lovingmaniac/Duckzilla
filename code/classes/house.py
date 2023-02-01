@@ -1,5 +1,4 @@
 from typing import Union
-
 from collections import namedtuple
 
 
@@ -18,12 +17,10 @@ class House:
 
     def add_cable(self, location: tuple) -> None:
         """Adds a cable to the house object."""
-
         self.cables.append(location)
 
     def remove_cable(self, location: tuple) -> Union[None, int]:
         """Removes cable from house object if it is there."""
-
         # only remove cable if possible
         if location not in self.cables:
             return 1
@@ -33,7 +30,6 @@ class House:
 
     def get_output(self) -> float:
         """Returns the output of a house object."""
-
         return self.output
 
     def get_location(self) -> str:
@@ -42,15 +38,12 @@ class House:
 
     def set_connected(self) -> None:
         """Sets house to connected when it is connected to a battery."""
-
         self.is_connected = True
 
     def get_cables(self) -> list:
         """Returns the cables connected to house."""
-
         return [f"{cable[0]},{cable[1]}" for cable in self.cables]
 
     def __repr__(self) -> str:
         """Returns the correct representation for house class."""
-
         return f"house: loc: {self.location}, output: {self.output}"
