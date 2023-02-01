@@ -1,3 +1,4 @@
+
 import math
 import argparse
 import time
@@ -14,8 +15,6 @@ from code.classes.node import Node
 from code.algorithms.breadthfirst import BreadthFirst
 from code.algorithms.iteration import Iteration, IterationBF
 
-
-# from code.algorithms import closest_houses as closest
 
 if __name__ == "__main__":
 
