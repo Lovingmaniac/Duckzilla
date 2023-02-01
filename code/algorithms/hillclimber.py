@@ -1,35 +1,47 @@
+import time
+import csv
 import random
 
+
 from code.classes.model import Model
-from code.visualization.visualization import visualize
+from code.classes.house import House
+from code.classes.battery import Battery
 
 
-class Hillclimber():
-    """Class hillclimber algorithm. Less random than iteration. 
-    Class takes a valid solution, and tries to improve it mutating changes for X iterations."""
-
-    def __init__(self, model: Model) -> None:
-        """Constructor of class Iteration:
+class Iteration():
+    """
+    Class iteration algorithm
+    Class takes a valid solution, tries to improve it mutating
+    changes for X iterations or X seconds.
+    """
+    def __init__(self, model: 'Model') -> None:
+        """
+        Constructor of class Iteration:
         Arguments:
         model -- a model of class Model with valid solution
 
         Returns:
         self.model -- model object that is a copy of given model
-        self.best_costs -- best costs reached in algorithm, starting with solution of given model"""
+        self.best_costs -- best costs reached in algorithm,
+        starting with solution of given model
+        """
         if not model.is_solution():
             raise Exception("Please provide a valid solution.")
 
         self.model = model.copy()
         self.best_costs = model.calculate_costs()
 
-    def mutate_battery_connection(self, new_model: Model) -> None:
-        """Switches two random existing connections of model. 
-        Random batteries are generated, with random houses connected to each battery.
-        Houses are swapped, from house lists in batteries. 
+    def mutate_battery_connection(self, new_model: 'Model') -> None:
+        """
+        Switches two random existing house/battery connections in model.
+        Random batteries are generated, random houses are generated
+        from these batteries.
+        Houses are swapped, from house lists in batteries.
         Old cables are removed and new cables are made.
 
         Arguments:
-        new_model -- the model of input with existing connections"""
+        new_model -- the model of input with existing connections
+        """
         # get random batteries
         rand_battery_1 = self.get_rand_battery(new_model)
         rand_battery_2 = self.get_rand_battery(new_model)
@@ -38,9 +50,9 @@ class Hillclimber():
         while rand_battery_2 == rand_battery_1:
             rand_battery_2 = self.get_rand_battery(new_model)
 
-        # generate houses with most output
-        rand_house_1 = self.get_expensive_house(new_model, rand_battery_1)
-        rand_house_2 = self.get_expensive_house(new_model, rand_battery_2)
+        # generate random houses
+        rand_house_1 = self.get_rand_house(new_model, rand_battery_1)
+        rand_house_2 = self.get_rand_house(new_model, rand_battery_2)
 
         # swap houses from battery lists
         self.swap_houses(rand_battery_1,
@@ -52,88 +64,179 @@ class Hillclimber():
         new_model.remove_one_cable(rand_battery_1, rand_house_1)
         new_model.remove_one_cable(rand_battery_2, rand_house_2)
 
-        # add new cables
+        # # add new cables
         new_model.add_one_cable(rand_battery_1, rand_house_2)
         new_model.add_one_cable(rand_battery_2, rand_house_1)
 
-    def swap_houses(self, battery_1, battery_2, house_1, house_2) -> None:
-        """Swaps houses from house lists per battery."""
+    def swap_houses(self,
+                    battery_1: 'Battery',
+                    battery_2:'Battery',
+                    house_1: 'House',
+                    house_2: 'House') -> None:
+        """Swaps houses from batteries.
+        Houses are first added to new batteries, then removed from old battery
+        Arguments:
+        battery_1 -- battery object from which to swap houses
+        battery_2 -- battery object from which to swap houses
+        house_1 -- house object to add/remove to old/new battery
+        house_2 -- house object to add/remove to old/new battery"""
+        # add new houses to new battery's house lists
         battery_1.houses.append(house_2)
         battery_2.houses.append(house_1)
 
+        # new batteries are added to house
         house_1.battery = battery_2
         house_2.battery = battery_1
 
+        # remove old house from battery 1
         idx_house_1 = battery_1.houses.index(house_1)
         del battery_1.houses[idx_house_1]
 
+        # remove old house from battery 2
         idx_house_2 = battery_2.houses.index(house_2)
         del battery_2.houses[idx_house_2]
 
-    def get_expensive_house(self, new_model: Model, battery):
-        """Returns most expensive house from a randomly generated battery."""
+    def get_expensive_house(self,
+                            new_model: 'Model',
+                            battery: 'Battery') -> 'House':
+        """
+        Returns most expensive house from a randomly generated battery.
+        Arguments:
+        new_model -- copy of original model, from which to mutate
+        battery -- random battery from which to pull most expensive house
+        """
         most_exp_output = 0
         most_exp_house = None
+
+        # iterate over houses in battery
         for house in battery.houses:
+            # get most expensive house
             if house.output > most_exp_output:
                 most_exp_house = house
         return most_exp_house
 
-    def get_rand_battery(self, new_model: Model):
-        """Returns a random battery from model's battery list.
+    def get_rand_battery(self, new_model: 'Model'):
+        """
+        Returns a random battery from model's battery list.
         Arguments:
         new_model -- the model of input with existing connections
 
         Returns:
-        rand_battery -- random generated battery object from battery list"""
+        rand_battery -- random generated battery object from battery list
+        """
         idx = random.randint(0, (len(new_model.batteries) - 1))
         rand_battery = new_model.batteries[idx]
         return rand_battery
 
-    def mutate_model(self, new_model: Model) -> None:
-        """Changes all batteries randomly to random houses.
+    def mutate_model(self, new_model: 'Model') -> None:
+        """
+        Changes all batteries randomly to random houses.
         Arguments:
-        new_model --the model of input with existing connections"""
-        # iterate over all batteries
+        new_model --the model of input with existing connections
+        """
         for i in range(5):
             self.mutate_battery_connection(new_model)
 
-    def check_solution(self, new_model: Model) -> None:
-        """Checks if solution is a better solution than the best solution reached.
+    def check_solution(self,
+                       new_model: 'Model',
+                       it_count: int,
+                       it_time: float) -> None:
+        """
+        Checks if solution is a better than the best solution reached.
         If solution has lower costs and is valid,
-        current best costs and model solution are switched to solution model.
+        current best costs and model solution are switched to new model.
         Arguments:
-        new_model -- the model of input with existing connections."""
+        new_model -- the model of input with existing connections
+        """
         # try new solution
         new_solution = new_model.calculate_costs()
         old_solution = self.best_costs
 
-        # if the costs are, change current model to new solution
+        # only accept valid solutions
         if new_model.is_solution() is False:
-            print("no")
             return None
 
+        # change current model and best costs to mutated model if cheaper
+        # write new best costs in experiment file
         if new_solution < old_solution:
-            print("found better solution")
             self.best_costs = new_solution
-            print(new_solution)
             self.model = new_model
-            visualize(self.model)
+            self.experiment_file(it_count, self.best_costs, it_time)
 
-    def run(self, iterations: int) -> None:
-        """Runs the hillclimber algorithm for a specific amount of iterations.
+    def experiment_file(self,
+                        it_count: int,
+                        total_costs: int,
+                        it_time: float) -> None:
+        """
+        Writes result of current result in csv file in output directory
+        Arguments:
+        it_count -- iteration round
+        total_costs -- costs result to add in file
+        it_time -- time of achieved result after start time
+        """
+        with open(
+                "output/experiment_iteration_bf.csv",
+                "a",newline="") as result_file:
+
+            # create writer object
+            csv_writer = csv.writer(result_file)
+
+            # make list of values for line
+            line = [f"iteration: {it_count}",
+                    f" total costs: {total_costs}",
+                    f" time since start run: {it_time}"]
+
+            # append list to new csv row
+            csv_writer.writerow(line)
+
+    def run_algorithm(
+            self,
+            it_count: int,
+            it_time: float) -> None:
+        """
+        Runs the hillclimber algorithm once.
         First a copy is made of current model solution.
         Then a mutation is made of current model solution.
-        If mutation model is better and valid, it becomes current best solutio.
+        If mutation model is better and valid, it becomes current best solution.
         Arguments:
-        iterations -- the amount of times to run this function"""
+        it_count -- current iteration number
+        it_time -- current iteration time since start run
+        """
 
-        for iteration in range(iterations):
-            # make copy of model for mutations
-            new_model = self.model.copy()
+        # print time and iteration count in terminal
+        print(f"iteration: {it_count}, time after run: {it_time}")
 
-            # mutate model
-            self.mutate_model(new_model)
+        # make copy of model for mutations
+        new_model = self.model.copy()
 
-            # if solution is better and valid, change swap model to mutate model
-            self.check_solution(new_model)
+        # mutate model
+        self.mutate_model(new_model)
+
+        # if solution is better and valid, swap model to mutate model
+        self.check_solution(new_model, it_count, it_time)
+
+    def run(self,
+            max_runtime: int = None,
+            iteration: int = None,
+            ) -> None:
+        """
+        Wrapper around run_algorithm to either exit after N iterations, 
+        or after a certain amount of time has passed. 
+        """
+        # set start time and iteration count
+        start_time = time.time()
+        it_count = 0
+
+        # run for iteration amount of iterations
+        if iteration:
+            for it_count in range(iteration):
+                it_time = time.time() - start_time
+                self.run_algorithm(it_count,
+                                   it_time)
+        elif max_runtime:
+            # run iteration until maximum time
+            while time.time() - start_time < max_runtime:
+                it_count += 1
+                it_time = time.time() - start_time
+                self.run_algorithm(it_count,
+                                   it_time)
