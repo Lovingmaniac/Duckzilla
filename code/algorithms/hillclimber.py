@@ -8,7 +8,7 @@ from code.classes.house import House
 from code.classes.battery import Battery
 
 
-class Iteration():
+class Hillclimber():
     """
     Class hillclimber algorithm
     Class takes a valid solution, tries to improve it mutating
