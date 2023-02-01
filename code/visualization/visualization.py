@@ -1,12 +1,7 @@
 import matplotlib.pyplot as plt
-import json
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import numpy as np
 import time
-
-# Read image
-# image = imread('house.png')
-
 
 def visualize(model):
     battery_img = "data/battery.png"
@@ -82,7 +77,3 @@ def imscatter(x, y, image, ax=None, zoom=1):
     ax.update_datalim(np.column_stack([x, y]))
     ax.autoscale()
     return artists
-
-
-if __name__ == "__main__":
-    visualize("example_output")
