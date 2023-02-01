@@ -104,7 +104,7 @@ class Iteration():
         """Returns a random house from a randomly generated battery.
         Arguments:
         new_model --the model of input with existing connections
-	battery -- battery from which to generate random house
+        battery -- battery from which to generate random house
         """
         idx = random.randint(0, (len(battery.houses) - 1))
         rand_house = battery.houses[idx]
