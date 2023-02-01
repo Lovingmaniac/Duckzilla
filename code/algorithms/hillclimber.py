@@ -234,8 +234,7 @@ class Hillclimber():
                 self.run_algorithm(it_count,
                                    it_time)
         elif max_runtime:
-            # run hillclimber
-            until maximum time
+            # run hillclimber until max time
             while time.time() - start_time < max_runtime:
                 it_count += 1
                 it_time = time.time() - start_time
